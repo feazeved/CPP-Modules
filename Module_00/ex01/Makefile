@@ -2,7 +2,7 @@ CC = c++
 
 NAME = MyPB
 
-SRC = Contact.cpp PhoneBook.cpp main.cpp
+SRC = Contact.cpp PhoneBook.cpp main.cpp utils.cpp
 
 OBJ_DIR = objects
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRC:.cpp=.o))

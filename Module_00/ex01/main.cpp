@@ -19,10 +19,9 @@ int main()
         else if (input == "SEARCH")
             phonebook.PrintPhoneBook();
         else if (input == "EXIT")
-            exit(0);
+            std::exit(0);
         else
         {
-
         }
     }
     return (0);
