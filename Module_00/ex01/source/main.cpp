@@ -13,7 +13,6 @@ int main()
         std::cout << "phonebook> ";
         std::cin >> input;
         std::cout << std::endl;
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         if (input == "ADD")
             phonebook.AddContact();
         else if (input == "SEARCH")

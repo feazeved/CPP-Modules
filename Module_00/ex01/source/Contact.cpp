@@ -1,16 +1,15 @@
 #include "Contact.hpp"
 #include <string>
+#include <iostream>
 
-
-Contact::Contact()
-    : first_name(),
-        last_name(),
-        nick(),
-        number(),
-        secret()
+void        Contact::PrintContact()
 {
+    std::cout << "\nFirst name: " << GetFirstName() << "\n";
+    std::cout << "Last name: " << GetLastName() << "\n";
+    std::cout << "Nickname: " << GetNick() << "\n";
+    std::cout << "Number: " << GetNumber() << "\n";
+    std::cout << "The darkest secret: " << GetSecret() << "\n\n";
 }
-
 
 std::string Contact::GetFirstName() const
 {
@@ -52,7 +51,7 @@ std::string Contact::GetSecret() const
 {
     return (secret);
 }
-void  Contact::SetSecret(const std::string& str)
+void        Contact::SetSecret(const std::string& str)
 {
     secret = str;
 }

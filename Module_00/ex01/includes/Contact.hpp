@@ -6,8 +6,8 @@
 class Contact
 {
     public:
-        Contact();
 
+        void        PrintContact();
 
         std::string GetFirstName() const;
         void        SetFirstName(const std::string& str);
