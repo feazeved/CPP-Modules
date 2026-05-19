@@ -1,6 +1,6 @@
 #include "Zombie.hpp"
 
-Zombie  *zombieHorde(int N, std::string name)
+Zombie  *zombieHorde(int N, const std::string &name)
 {
     Zombie  *horde_ptr = new Zombie[N];
 

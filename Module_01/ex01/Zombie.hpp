@@ -15,14 +15,14 @@ class Zombie
 
         void        announce(void);
         std::string GetName();
-        void        SetName(std::string new_name);
+        void        SetName(const std::string &new_name);
 
 
     private:
         std::string name;
 };
 
-Zombie  *zombieHorde(int N, std::string name);
+Zombie  *zombieHorde(int N, const std::string &name);
 void    randomChump(std::string name);
 Zombie  *newZombie(std::string name);
 
