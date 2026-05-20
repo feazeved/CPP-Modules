@@ -1,16 +1,16 @@
 #ifndef WEAPON_HPP
 # define WEAPON_HPP
 
+#include <string>
 
 class Weapon {
 public:
-    Weapon() = default;
-    Weapon(Weapon &&) = default;
-    Weapon(const Weapon &) = default;
-    Weapon &operator=(Weapon &&) = default;
-    Weapon &operator=(const Weapon &) = default;
-    ~Weapon() = default;
+    Weapon(const std::string &t = "");
 
+    const std::string&  getType(void);
+    void                setType(const std::string &new_type);
 private:
-    
+    std::string type;
 };
+
+#endif

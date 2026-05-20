@@ -4,7 +4,7 @@ NAME = unnecessary
 
 OBJ_DIR = objects
 
-SRC = main.cpp Weapon.cpp HumanB.cpp HumanA.cpp
+SRC = main.cpp Weapon.cpp  HumanA.cpp
 
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRC:.cpp=.o))
 
