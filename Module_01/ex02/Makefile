@@ -1,10 +1,11 @@
+
 CC = c++
 
-NAME = moar_brainzzz
+NAME = hi_brain
 
 OBJ_DIR = objects
 
-SRC = Zombie.cpp main.cpp zombieHorde.cpp
+SRC = main.cpp
 
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRC:.cpp=.o))
 
