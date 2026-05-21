@@ -10,8 +10,8 @@ class HumanB{
 public:
     HumanB(const std::string &n);
 
-    void    setWeapon(Weapon &new_weapon);
-    Weapon  getWeapon(void);
+    void    setWeapon(Weapon *new_weapon);
+    Weapon  *getWeapon(void);
 
     void    attack(void);
 
