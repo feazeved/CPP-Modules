@@ -5,7 +5,7 @@
 #include "Weapon.hpp"
 
 HumanB::HumanB(const std::string &n)
-    : name(n)
+    : weapon(), name(n)
 {
 }
 

@@ -3,7 +3,7 @@
 
 #include "HumanA.hpp"
 
-HumanA::HumanA(const std::string n, Weapon &w)
+HumanA::HumanA(const std::string &n, Weapon &w)
     : weapon(w), name(n)
 {
 }
