@@ -1,4 +1,3 @@
-
 CC = c++
 
 NAME = sed
