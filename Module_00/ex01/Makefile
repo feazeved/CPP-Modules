@@ -1,12 +1,11 @@
 CC = c++
 
-NAME = myphonebook
+NAME = mypb
 
-SRC_DIR = source
 OBJ_DIR = objects
-INC_DIR = includes
 
-SRC = Contact.cpp PhoneBook.cpp main.cpp utils.cpp
+SRC = main.cpp Contact.cpp PhoneBook.cpp utils.cpp
+
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRC:.cpp=.o))
 
 CFLAGS = -Wall -Werror -Wextra -std=c++98
@@ -19,8 +18,8 @@ $(NAME): $(OBJ)
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp $(OBJ_DIR)
-	$(CC) $(CFLAGS) -I $(INC_DIR) -c $< -o $@
+$(OBJ_DIR)/%.o: %.cpp $(OBJ_DIR)
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
 	rm -rf $(OBJ_DIR)
