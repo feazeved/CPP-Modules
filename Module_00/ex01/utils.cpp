@@ -12,10 +12,6 @@ bool        clearFailedExtraction()
 {
     if (!std::cin)
     {
-        if (std::cin.eof())
-        {
-            std::exit(1);
-        }
         std::cin.clear();
         ignoreLine();
         return (true);
@@ -33,3 +29,4 @@ std::string TruncateString(const std::string &str, size_t width)
     else
         return (str);
 }
+
