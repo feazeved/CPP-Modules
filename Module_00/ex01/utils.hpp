@@ -3,6 +3,5 @@
 
 bool        clearFailedExtraction();
 std::string TruncateString(const std::string &str, size_t width);
-int         MyAtoi(const std::string &str);
 
 #endif

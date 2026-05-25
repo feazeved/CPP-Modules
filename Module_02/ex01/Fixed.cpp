@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cmath>
 
 #include "Fixed.hpp"
 
@@ -9,13 +10,13 @@ Fixed::Fixed() :
 }
 
 Fixed::Fixed(const int v_int) :
-    value(v_int * int(1 << fractional))
+    value(v_int << fractional)
 {
     std::cout << "Int constructor called\n";
 }
 
 Fixed::Fixed(const float v_float) :
-    value(static_cast<int>(v_float * float(1 << fractional) + (v_float >= 0 ? 0.5f : -0.5f)))
+    value(roundf(v_float * (1 << fractional)))
 {
     std::cout << "Float constructor called\n";
 }
@@ -68,3 +69,4 @@ std::ostream& operator<<(std::ostream& out, const Fixed& obj)
     out << obj.toFloat();
     return (out);
 }
+

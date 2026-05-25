@@ -1,7 +1,7 @@
 #include <string>
 #include <iostream>
 #include <iomanip>
-#include <stdexcept>
+#include <sstream>
 
 #include "PhoneBook.hpp"
 #include "Contact.hpp"
@@ -74,14 +74,28 @@ void  PhoneBook::PrintPhoneBook()
     std::cin >> index_input;
     clearFailedExtraction();
 
-    int index_int = MyAtoi(index_input);
-    if (index_int == -1)
+    if (index_input[0] == '+')
+        index_input.erase(0);
+    if (index_input[0] == '-')
     {
-        std::cerr << "Invalid input: not a valid number" << std::endl;
+        std::cerr << "Index out of range. Please enter a number between 0 and "
+                  << (to_display - 1) << "\n" << std::endl;
         return ;
     }
 
-    if (index_int < 0 || index_int >= to_display)
+
+    if (!isdigit(index_input[0]) || index_input.size() != 1)
+    {
+        std::cerr << "Invalid input: not a valid number\n" << std::endl;
+        return ;
+    }
+
+    std::istringstream  my_stream(index_input);
+    int                 index_int;
+
+    my_stream >> index_int;
+
+    if (index_int >= to_display)
     {
         std::cerr << "Index out of range. Please enter a number between 0 and "
                   << (to_display - 1) << "\n" << std::endl;
@@ -90,3 +104,4 @@ void  PhoneBook::PrintPhoneBook()
     contacts[index_int].PrintContact();
 
 }
+
