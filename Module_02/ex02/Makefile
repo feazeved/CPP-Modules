@@ -8,7 +8,7 @@ SRC = Fixed.cpp main.cpp
 
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRC:.cpp=.o))
 
-CFLAGS = -Wall -Werror -Wextra -std=c++98 -Wconversion -Wfloat-conversion
+CFLAGS = -Wall -Werror -Wextra -std=c++98
 
 all: $(NAME)
 

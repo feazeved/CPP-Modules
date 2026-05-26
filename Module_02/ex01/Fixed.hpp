@@ -5,10 +5,10 @@
 
 class Fixed {
 public:
-    explicit Fixed();
-    explicit Fixed(const int v);
-    explicit Fixed(const float v);
-    explicit Fixed(const Fixed& other);
+    Fixed();
+    Fixed(const int v);
+    Fixed(const float v);
+    Fixed(const Fixed& other);
     Fixed& operator=(const Fixed& other);
     ~Fixed();
 
