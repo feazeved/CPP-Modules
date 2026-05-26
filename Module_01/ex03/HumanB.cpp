@@ -5,10 +5,15 @@
 #include "Weapon.hpp"
 
 HumanB::HumanB(const std::string &n)
-    : weapon(), name(n)
+    : weapon(0), name(n)
 {
 }
 
+HumanB::HumanB(const std::string &n, Weapon& w) :
+    name(n)
+{
+    weapon = &w;
+}
 
 void    HumanB::setWeapon(Weapon *new_weapon)
 {

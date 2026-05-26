@@ -15,7 +15,7 @@ class PhoneBook
         Contact contacts[8];
         int count;
 
-        std::string PromptField(const std::string& field_name);
+        static std::string PromptField(const std::string& field_name);
 };
 
 #endif

@@ -1,11 +1,13 @@
 #include "Zombie.hpp"
 
-Zombie::Zombie(const std::string &name) : name(name)
+Zombie::Zombie(const std::string &name) :
+    name(name)
 {
     //initialization list
 }
 
-Zombie::Zombie() : name()
+Zombie::Zombie() :
+    name()
 {
 
 }
@@ -18,7 +20,7 @@ Zombie::~Zombie()
 
 void        Zombie::announce(void)
 {
-    std::cout << this->name << ":  BraiiiiiiinnnzzzZ...\n";
+    std::cout << this->name << ": BraiiiiiiinnnzzzZ...\n";
 }
 
 std::string Zombie::GetName()

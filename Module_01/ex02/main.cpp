@@ -18,7 +18,5 @@ int main()
     std::cout << str << "\n";
     std::cout << *stringPTR << "\n";
     std::cout << stringREF << "\n";
-
-    std::cout << std::endl;
     return (0);
 }

@@ -9,6 +9,8 @@ static void ignoreLine()
 
 bool        clearFailedExtraction()
 {
+    if (std::cin.eof())
+        return (true);
     if (!std::cin)
     {
         std::cin.clear();

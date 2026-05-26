@@ -16,7 +16,7 @@ std::string PhoneBook::PromptField(const std::string& field_name)
 {
     std::string input;
 
-    while (1)
+    while (!std::cin.eof())
     {
         std::cout << "Enter " << field_name << ": ";
         std::cin >> input;
@@ -24,6 +24,7 @@ std::string PhoneBook::PromptField(const std::string& field_name)
         if (!clearFailedExtraction())
             return (input);
     }
+    return (input);
 }
 
 void  PhoneBook::AddContact()
@@ -70,7 +71,7 @@ void  PhoneBook::PrintPhoneBook()
     std::cout << "Please enter an index to display contact info" << std::endl;
     std::cout << "phonebook> ";
 
-    while (1)
+    while (!std::cin.eof())
     {
         std::string index_input;
         std::cin >> index_input;

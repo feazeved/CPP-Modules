@@ -4,11 +4,11 @@
 
 void        Contact::PrintContact()
 {
-    std::cout << "\nFirst name: " << GetFirstName() << "\n";
-    std::cout << "Last name: " << GetLastName() << "\n";
-    std::cout << "Nickname: " << GetNick() << "\n";
-    std::cout << "Number: " << GetNumber() << "\n";
-    std::cout << "The darkest secret: " << GetSecret() << "\n\n";
+    std::cout << "\nFirst name: " << GetFirstName() << "\n"
+              << "Last name: " << GetLastName() << "\n"
+              << "Nickname: " << GetNick() << "\n"
+              << "Number: " << GetNumber() << "\n"
+              << "The darkest secret: " << GetSecret() << "\n\n";
 }
 
 std::string Contact::GetFirstName() const

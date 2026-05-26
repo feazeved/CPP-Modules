@@ -40,10 +40,11 @@ int main(int argc, char **argv)
         return (1);
     }
 
-    std::ofstream replace_file;
-    std::string   file_name = argv[1];
+    std::ofstream   replace_file;
+    std::string     file_name = argv[1];
+    std::string     new_file = file_name + ".replace";
 
-    replace_file.open(file_name + ".replace", std::ios::out);
+    replace_file.open(new_file.c_str(), std::ios::out);
     if (!replace_file.is_open()){
         std::cerr << "Error: Could not create replace file.\n";
 

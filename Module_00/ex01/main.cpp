@@ -9,7 +9,7 @@ int main()
     std::string input;
     PhoneBook   phonebook;
 
-    while (1)
+    while (!std::cin.eof())
     {
         std::cout << "Enter ADD to save a new contact, SEARCH to display a contact or EXIT to quit the program." << std::endl;
         std::cout << "phonebook> ";
