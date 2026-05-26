@@ -2,20 +2,37 @@
 
 #include "Harl.hpp"
 
-void  Harl::complain(const level& option)
+void  Harl::complain(char *str)
 {
-    switch (option) {
+    typedef void(Harl::*fptr)(void);
+    std::string options[4] = {"DEBUG", "INFO", "WARNING", "ERROR"};
+    fptr        ptr[4] = {&Harl::debug, &Harl::info, &Harl::warning, &Harl::error};
+
+    std::string level(str);
+    int i;
+    for (i = 0; i < 4; i++)
+    {
+        if (i == 3 && level != options[i])
+        {
+            i = -1;
+            break ;
+        }
+        if (options[i] == level)
+            break ;
+    }
+
+    switch (i) {
         default:
             std::cout << "[ Probably complaining about insignificant problems ]\n";
             break;
         case (DEBUG):
-            debug();
+            (this->*ptr[DEBUG])();
         case (INFO):
-            info();
+            (this->*ptr[INFO])();
         case (WARNING):
-            warning();
+            (this->*ptr[WARNING])();
         case (ERROR):
-            error();
+            (this->*ptr[ERROR])();
             break;
     }
 }

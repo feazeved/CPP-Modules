@@ -4,7 +4,6 @@
 #include <string>
 
 enum level {
-    NONE,
     DEBUG,
     INFO,
     WARNING,
@@ -13,7 +12,7 @@ enum level {
 
 class Harl {
 public:
-    void  complain(const level& option);
+    void  complain(char *str);
 private:
     void  debug(void);
     void  info(void);
