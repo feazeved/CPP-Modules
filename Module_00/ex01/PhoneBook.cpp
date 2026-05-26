@@ -70,38 +70,48 @@ void  PhoneBook::PrintPhoneBook()
     std::cout << "Please enter an index to display contact info" << std::endl;
     std::cout << "phonebook> ";
 
-    std::string index_input;
-    std::cin >> index_input;
-    clearFailedExtraction();
-
-    if (index_input[0] == '+')
-        index_input.erase(0);
-    if (index_input[0] == '-')
+    while (1)
     {
-        std::cerr << "Index out of range. Please enter a number between 0 and "
-                  << (to_display - 1) << "\n" << std::endl;
-        return ;
+        std::string index_input;
+        std::cin >> index_input;
+        clearFailedExtraction();
+
+        if (index_input[0] == '+')
+            index_input.erase(0, 1);
+        while (index_input[0] == '0')
+        {
+            if (index_input.size() == 1)
+                break ;
+            index_input.erase(0, 1);
+        }
+        if (index_input[0] == '-')
+        {
+            std::cerr << "\nIndex out of range. Please enter a number between 0 and "
+                      << (to_display - 1) << "\n" << "phonebook> ";
+            continue ;
+        }
+
+
+        if (!isdigit(index_input[0]) || index_input.size() != 1)
+        {
+            std::cerr << "Invalid input: not a valid number\n" << std::endl;
+            return ;
+        }
+
+        std::istringstream  my_stream(index_input);
+        int                 index_int;
+
+        my_stream >> index_int;
+
+        if (index_int >= to_display)
+        {
+            std::cerr << "\nIndex out of range. Please enter a number between 0 and "
+                      << (to_display - 1) << "\n" << "phonebook> ";
+            continue ;
+        }
+        contacts[index_int].PrintContact();
+        break ;
     }
-
-
-    if (!isdigit(index_input[0]) || index_input.size() != 1)
-    {
-        std::cerr << "Invalid input: not a valid number\n" << std::endl;
-        return ;
-    }
-
-    std::istringstream  my_stream(index_input);
-    int                 index_int;
-
-    my_stream >> index_int;
-
-    if (index_int >= to_display)
-    {
-        std::cerr << "Index out of range. Please enter a number between 0 and "
-                  << (to_display - 1) << "\n" << std::endl;
-        return ;
-    }
-    contacts[index_int].PrintContact();
 
 }
 

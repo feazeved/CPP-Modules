@@ -1,7 +1,6 @@
 #include <limits>
 #include <string>
 #include <iostream>
-#include <climits>
 
 static void ignoreLine()
 {
@@ -29,4 +28,3 @@ std::string TruncateString(const std::string &str, size_t width)
     else
         return (str);
 }
-

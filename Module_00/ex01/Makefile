@@ -8,7 +8,7 @@ SRC = main.cpp Contact.cpp PhoneBook.cpp utils.cpp
 
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRC:.cpp=.o))
 
-CFLAGS = -Wall -Werror -Wextra -std=c++98
+CFLAGS = -Wall -Werror -Wextra -std=c++98 -g
 
 all: $(NAME)
 
@@ -18,7 +18,7 @@ $(NAME): $(OBJ)
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
 
-$(OBJ_DIR)/%.o: %.cpp $(OBJ_DIR)
+$(OBJ_DIR)/%.o: %.cpp | $(OBJ_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:

@@ -1,24 +1,27 @@
-CC = c++
+NAME	=	bank
 
-NAME = account
-
-OBJ_DIR = objects
-
-SRC = Account.cpp tests.cpp
-
-OBJ = $(addprefix $(OBJ_DIR)/, $(SRC:.cpp=.o))
+CC	=	c++
 
 CFLAGS = -Wall -Werror -Wextra -std=c++98
 
+
+SRC_DIR	=	.
+OBJ_DIR	=	objects
+
+SRCS = Account.cpp tests.cpp
+
+OBJS	=	$(addprefix $(OBJ_DIR)/, $(SRCS:.cpp=.o))
+
 all: $(NAME)
 
-$(NAME): $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
+
+$(NAME): $(OBJ_DIR) $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
 
-$(OBJ_DIR)/%.o: %.cpp $(OBJ_DIR)
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp | $(OBJ_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:

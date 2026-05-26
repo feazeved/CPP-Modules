@@ -21,7 +21,7 @@ $(NAME): $(OBJ_DIR) $(OBJS)
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp $(OBJ_DIR)
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp | $(OBJ_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
