@@ -27,5 +27,8 @@ Weapon  *HumanB::getWeapon(void)
 
 void    HumanB::attack(void)
 {
-    std::cout << this->name << " attacks with their " << weapon->getType() << "\n";
+	if (this->weapon)
+    	std::cout << this->name << " attacks with their " << weapon->getType() << "\n";
+	else
+		std::cout << this->name << " attacks with their bare hands" << std::endl;
 }

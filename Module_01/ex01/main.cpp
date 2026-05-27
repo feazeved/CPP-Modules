@@ -1,11 +1,19 @@
+#include <iostream>
+
 #include "Zombie.hpp"
 
 int main()
 {
-    Zombie *ptr = zombieHorde(3, "Felipe");
-    ptr[0].announce();
-    ptr[1].announce();
-    ptr[2].announce();
+	int n = 10;
+    Zombie *ptr = NULL;
+	ptr = zombieHorde(n, "Felipe");
+	if (!ptr)
+		return (1);
+	for (int i = 0; i < n; i++)
+	{
+		std::cout << "N: " << i << ": ";
+    	ptr[i].announce();
+	}
     delete[] ptr;
     return (0);
 }

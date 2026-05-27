@@ -3,7 +3,6 @@
 Zombie::Zombie(const std::string &name) :
     name(name)
 {
-    //initialization list
 }
 
 Zombie::Zombie() :

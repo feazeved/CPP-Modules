@@ -34,6 +34,12 @@ int main(int argc, char **argv)
         return (1);
     }
 
+	if (!argv[2][0])
+	{
+		std::cerr << "Error: No previous regular expression.\n";
+		return (1);
+	}
+
     std::ifstream file(argv[1]);
     if (!file.is_open()){
         std::cerr << "Error: Could not open the file.\n";

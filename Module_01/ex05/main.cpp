@@ -7,6 +7,8 @@ int main()
 {
     Harl  obj;
 
+	obj.complain("");
+	obj.complain("arara");
     obj.complain("debug");
     obj.complain("info");
     obj.complain("warning");
