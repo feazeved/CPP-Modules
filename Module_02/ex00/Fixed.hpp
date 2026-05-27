@@ -5,7 +5,7 @@ class Fixed {
 public:
     Fixed();
     Fixed(const Fixed &);
-    Fixed &operator=(Fixed &);
+    Fixed &operator=(const Fixed &);
     ~Fixed();
 
     int   getRawBits(void) const;
