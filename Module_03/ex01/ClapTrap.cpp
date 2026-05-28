@@ -3,26 +3,27 @@
 #include "ClapTrap.hpp"
 
 ClapTrap::ClapTrap() :
-	name("default"), hp(10), ep(10), ad(0)
+	name("default"), hp(100), ep(50), ad(20)
 {
-    std::cout << "Default constructor shouldn't be called. Name is set to \"default\".\n";
+    std::cout << "[ClapTrap] Default constructor shouldn't be called. Name is set to \"default\".\n";
 }
 
 ClapTrap::ClapTrap(const std::string &n) :
-	name(n), hp(10), ep(10), ad(0)
+	name(n), hp(100), ep(50), ad(20)
 {
-    std::cout << "ClapTrap " << name << " is ready for use!\n";
+    std::cout << "[ClapTrap] Constructor called with name" << name << ".\n";
 }
 
 ClapTrap::ClapTrap(const ClapTrap& other) :
 	name(other.name), hp(other.hp), ep(other.ep), ad(other.ad)
 {
-    std::cout << "Copy constructed another " << name << "!\n";
+    std::cout << "[ClapTrap] Copy constructed another " << name << "!\n";
 }
 
 ClapTrap& ClapTrap::operator=(const ClapTrap& other)
 {
-	std::cout << "Assigned constructed another " << name << "!\n";
+    std::cout << "[ClapTrap] Assigned constructed  " << name << "!\n";
+
     if (this == &other)
         return (*this);
     this->name = other.name;
@@ -35,9 +36,8 @@ ClapTrap& ClapTrap::operator=(const ClapTrap& other)
 
 ClapTrap::~ClapTrap()
 {
-    std::cout << "ClapTrap " << name << " got destroyed!\n";
+    std::cout << "[ClapTrap] Got destroyed!\n";
 }
-
 
 std::string& ClapTrap::getName()
 {
@@ -78,7 +78,7 @@ void	ClapTrap::attack(const std::string& target)
     if (!isFit(1))
 		    return ;
 
-    std::cout << "ClapTrap " << name
+    std::cout << "[ClapTrap] " << name
               << " attacks " << target 
               << " causing " << ad 
               << " points of damage!\n";
@@ -89,24 +89,20 @@ void	ClapTrap::takeDamage(unsigned int amount)
 {
     if (!isFit(0))
         return ;
-
-    std::cout << "ClapTrap " << name
+    std::cout << "[ClapTrap] " << name
               << " took " << amount
               << " of damage!\n";
     hp -= amount;
     if (hp <= 0)
-        std::cout << "*ClapTrap " << name << " died!*\n";
+        std::cout << "*[ClapTrap] " << name << " died!*\n";
 }
 
 void	ClapTrap::beRepaired(unsigned int amount)
 {
     if (!isFit(1))
-    {
-        std::cout << "ClapTrap " << name << " don't have enough ep for this!\n";
         return ;
-    }
 
-    std::cout << "ClapTrap " << name
+    std::cout << "[ClapTrap] " << name
               << " repaired " << amount
               << " health point" << (amount != 1 ? "s!\n" : "!\n");
     ep -= 1;

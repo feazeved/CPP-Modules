@@ -14,26 +14,26 @@ public:
 
 	~ClapTrap();
 
-  std::string& getName();
-  void         setName(const std::string& n);
+  	std::string& getName();
+ 	void         setName(const std::string& n);
 
-  int          getAd();
-  void         setAd(const int a);
+  	int          getAd();
+  	void         setAd(const int a);
 
-  int          getHp();
+  	int          getHp();
 
 
 	void attack(const std::string& target);
 	void takeDamage(unsigned int amount);
 	void beRepaired(unsigned int amount);
-	
-private:
+
+protected:
 	std::string name;
 	int         hp;
 	int         ep;
 	int         ad;
 
-  bool        isFit(const int& epCost) const;
+	bool      	isFit(const int& epCost) const;
 };
 
 #endif
