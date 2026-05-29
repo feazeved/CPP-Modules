@@ -5,25 +5,21 @@
 
 int main()
 {
-    ClapTrap  assign;
     ClapTrap  clap("clap");
     ClapTrap  trap("trap");
     ClapTrap  copy(clap);
 
-    assign = trap;
+    copy = trap;
 
     std::cout << "\n|-----" << std::setw(25) << std::left << "Testing vars" << "-----|\n\n";
-    std::cout << "assign: " << assign.getName() << "\n";
+    std::cout << "assign: " << copy.getName() << "\n";
     std::cout << "clap: " << clap.getName() << "\n";
     std::cout << "trap: " << trap.getName() << "\n";
-    std::cout << "copy: " << copy.getName() << "\n";
-  
+
     copy.setName("copy");
     std::cout << "\nnew copy: " << copy.getName() << "\n";
     std::cout << "clap: " << clap.getName() << "\n";
 
-    assign.setName("assign");
-    std::cout << "\nnew assign: " << assign.getName() << "\n";
     std::cout << "trap: " << trap.getName() << "\n";
 
     std::cout << "\n|-----" << std::setw(25) << std::left << "Testing basic functions" << "-----|\n\n";

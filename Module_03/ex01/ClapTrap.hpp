@@ -2,7 +2,6 @@
 # define CLAPTRAP_HPP
 
 #include <string>
-#include <iostream>
 
 class	ClapTrap {
 public:
@@ -14,17 +13,13 @@ public:
 
 	virtual ~ClapTrap();
 
-  	std::string& getName();
-    void         setName(const std::string& n);
+	const std::string& getName() const;
+	void         setName(const std::string& n);
 
-  	int          getHp();
+	int          getAd() const;
+	void         setAd(const int a);
 
-    int          getEp();
-    void         setEp(const int e);
-
-  	int          getAd();
-  	void         setAd(const int a);
-
+	int          getHp() const;
 
 	virtual void attack(const std::string& target);
 	void takeDamage(unsigned int amount);
@@ -35,8 +30,6 @@ protected:
 	int         hp;
 	int         ep;
 	int         ad;
-
-	bool      	isFit(const int& epCost) const;
 };
 
 #endif

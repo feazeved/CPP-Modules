@@ -2,10 +2,16 @@
 
 #include "ClapTrap.hpp"
 
-ClapTrap::ClapTrap(const std::string &n) :
-	name(n), hp(10), ep(10), ad(0)
+ClapTrap::ClapTrap() :
+	name("default"), hp(100), ep(100), ad(30)
 {
-    std::cout << "[ClapTrap] Default constructed " << name << "!\n";
+    std::cout << "[ClapTrap] Shouldn't call constructor without name. Name is set to \"default\".\n";
+}
+
+ClapTrap::ClapTrap(const std::string &n) :
+	name(n), hp(100), ep(100), ad(30)
+{
+    std::cout << "[ClapTrap] Default constructor called with name " << name << "!\n";
 }
 
 ClapTrap::ClapTrap(const ClapTrap& other) :
@@ -16,10 +22,10 @@ ClapTrap::ClapTrap(const ClapTrap& other) :
 
 ClapTrap& ClapTrap::operator=(const ClapTrap& other)
 {
+    std::cout << "[ClapTrap] Assigned constructed another " << other.name << "!\n";
+
     if (this == &other)
         return (*this);
-
-    std::cout << "[ClapTrap] Assigned constructed another " << other.name << "!\n";
     this->name = other.name;
     this->hp = other.hp;
     this->ep = other.ep;
@@ -33,8 +39,7 @@ ClapTrap::~ClapTrap()
     std::cout << "[ClapTrap] " << name << " got destroyed!\n";
 }
 
-
-const std::string& ClapTrap::getName() const
+std::string& ClapTrap::getName()
 {
     return (name);
 }
@@ -44,7 +49,22 @@ void         ClapTrap::setName(const std::string &n)
     name = n;
 }
 
-int          ClapTrap::getAd() const
+int          ClapTrap::getHp()
+{
+    return (hp);
+}
+
+int          ClapTrap::getEp()
+{
+    return (ep);
+}
+
+void         ClapTrap::setEp(const int e)
+{
+    ep = e;
+}
+
+int          ClapTrap::getAd()
 {
     return (ad);
 }
@@ -54,48 +74,43 @@ void         ClapTrap::setAd(const int a)
     ad = a;
 }
 
-int          ClapTrap::getHp() const
+bool  ClapTrap::isFit(const int& epCost) const
 {
-    return (hp);
+    if (hp <= 0)
+        return (false);
+    if ((ep - epCost) < 0)
+        return (false);
+    return (true);
 }
 
 void	ClapTrap::attack(const std::string& target)
 {
-    if (hp <= 0)
-        return ;
-    else if (ep <= 0)
-    {
-        std::cout << "[ClapTrap] " << name << " cannot do this!\n";
-    }
+    if (!isFit(1))
+		    return ;
 
     std::cout << "[ClapTrap] " << name
-              << " attacks " << target
-              << " causing " << ad
+              << " attacks " << target 
+              << " causing " << ad 
               << " points of damage!\n";
     ep -= 1;
 }
 
 void	ClapTrap::takeDamage(unsigned int amount)
 {
-    if (hp <= 0)
+    if (!isFit(0))
         return ;
-
     std::cout << "[ClapTrap] " << name
               << " took " << amount
               << " of damage!\n";
     hp -= amount;
     if (hp <= 0)
-        std::cout << "[ClapTrap] " << name << " died!\n";
+        std::cout << "*[ClapTrap] " << name << " died!*\n";
 }
 
 void	ClapTrap::beRepaired(unsigned int amount)
 {
-    if (hp <= 0)
+    if (!isFit(1))
         return ;
-    else if (ep <= 0)
-    {
-        std::cout << "[ClapTrap] " << name << " cannot do this!\n";
-    }
 
     std::cout << "[ClapTrap] " << name
               << " repaired " << amount
@@ -103,3 +118,4 @@ void	ClapTrap::beRepaired(unsigned int amount)
     ep -= 1;
     hp += amount;
 }
+

@@ -1,43 +1,20 @@
 #include <iostream>
-#include <iomanip>
 
-#include "ClapTrap.hpp"
 #include "ScavTrap.hpp"
 
 int main()
 {
-    std::cout << "|-----  ClapTrap Constructors  -----|\n\n";
-    ClapTrap  c_assign;
-    ClapTrap  c_clap("clap");
-    ClapTrap  c_trap("trap");
-    ClapTrap  c_copy(c_clap);
+    std::cout << "|----- Constructors -----|\n";
 
-    c_assign = c_trap;
+    ScavTrap    scav("Scav");
+    ScavTrap    trap("Trap");
+    std::cout << "\n";
+    ScavTrap    copy_then_assign(scav);
+    copy_then_assign = trap;
 
-    std::cout << "\n|-----  ScavTrap Constructors  -----|\n\n";
-    ScavTrap  s_assign;
-    ScavTrap  s_scav("scav");
-    ScavTrap  s_trap("trap");
-    ScavTrap  s_copy(s_scav);
+    std::cout << "\n\n|----- Testing value at vars -----|\n";
+    std::cout << scav.getName() << "\n" << trap.getName() << "\n" << copy_then_assign.getName() << "\n";
 
-    s_assign = s_scav;
-
-    std::cout << "\n|-----  Basic functions  -----|\n\n";
-
-    s_scav.attack(s_trap.getName());
-    s_trap.takeDamage(s_scav.getAd());
-
-    std::cout << "\nTrap has " << s_trap.getHp() << "HP.\n";
-
-    s_trap.beRepaired(20);
-
-    std::cout << "Trap has " << s_trap.getHp() << "HP and " << s_trap.getEp() << "EP.\n\n";
-
-    s_scav.setEp(2);
-    for (int i = 0; i < 3; i++)
-    {
-        s_scav.attack(s_trap.getName());
-    }
-
-    std::cout << "\n|-----  Destructors  -----|\n\n";
+    std::cout << "\n\n|----- Destructors -----|\n";
+    return (0);
 }
