@@ -1,10 +1,10 @@
 CC = c++
 
-NAME = open
+NAME = repetitive
 
 OBJ_DIR = objects
 
-SRC = ClapTrap.cpp main.cpp
+SRC = ClapTrap.cpp ScavTrap.cpp FragTrap.cpp main.cpp
 
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRC:.cpp=.o))
 

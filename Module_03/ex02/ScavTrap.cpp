@@ -30,7 +30,7 @@ ScavTrap&	ScavTrap::operator=(const ScavTrap& other)
 
 ScavTrap::~ScavTrap()
 {
-	std::cout << "[ScavTrap] " << name << " Got destroyed!\n";
+	std::cout << "[ScavTrap] " << name << " got destroyed!\n";
 }
 
 void	ScavTrap::guardGate()

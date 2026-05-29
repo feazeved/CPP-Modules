@@ -3,6 +3,7 @@
 
 #include "ClapTrap.hpp"
 #include "ScavTrap.hpp"
+#include "FragTrap.hpp"
 
 int main()
 {
@@ -22,21 +23,28 @@ int main()
 
     s_assign = s_scav;
 
+    std::cout << "\n|-----  FragTrap Constructors  -----|\n\n";
+    FragTrap  f_assign;
+    FragTrap  f_frag("frag");
+    FragTrap  f_trap("trap");
+    FragTrap  f_copy(f_frag);
+
+    f_assign = f_frag;
     std::cout << "\n|-----  Basic functions  -----|\n\n";
 
-    s_scav.attack(s_trap.getName());
-    s_trap.takeDamage(s_scav.getAd());
+    f_frag.attack(f_trap.getName());
+    f_trap.takeDamage(f_frag.getAd());
 
-    std::cout << "\nTrap has " << s_trap.getHp() << "HP.\n";
+    std::cout << "\nTrap has " << f_trap.getHp() << "HP.\n";
 
-    s_trap.beRepaired(20);
+    f_trap.beRepaired(20);
 
-    std::cout << "Trap has " << s_trap.getHp() << "HP and " << s_trap.getEp() << "EP.\n\n";
+    std::cout << "Trap has " << f_trap.getHp() << "HP and " << f_trap.getEp() << "EP.\n\n";
 
-    s_scav.setEp(2);
+    f_frag.setEp(2);
     for (int i = 0; i < 3; i++)
     {
-        s_scav.attack(s_trap.getName());
+        f_frag.attack(f_trap.getName());
     }
 
     std::cout << "\n|-----  Destructors  -----|\n\n";

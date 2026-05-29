@@ -3,13 +3,13 @@
 #include "ClapTrap.hpp"
 
 ClapTrap::ClapTrap() :
-	name("default"), hp(100), ep(50), ad(20)
+	name("default"), hp(100), ep(100), ad(30)
 {
     std::cout << "[ClapTrap] Shouldn't call constructor without name. Name is set to \"default\".\n";
 }
 
 ClapTrap::ClapTrap(const std::string &n) :
-	name(n), hp(100), ep(50), ad(20)
+	name(n), hp(100), ep(100), ad(30)
 {
     std::cout << "[ClapTrap] Default constructor called with name " << name << "!\n";
 }
