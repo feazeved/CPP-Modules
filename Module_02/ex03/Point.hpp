@@ -11,8 +11,8 @@ public:
     Point& operator=(const Point& other);
     ~Point();
 
-    Fixed   getX();
-    Fixed   getY();
+    Fixed   getX() const;
+    Fixed   getY() const;
 
 
 private:
