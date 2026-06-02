@@ -16,5 +16,4 @@ int main()
 
     std::cout << "\n\n|----- Destructors -----|\n";
     return (0);
-    return (0);
 }

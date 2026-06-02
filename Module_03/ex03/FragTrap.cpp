@@ -2,12 +2,6 @@
 
 #include "FragTrap.hpp"
 
-FragTrap::FragTrap() :
-    ClapTrap()
-{
-    std::cout << "[FragTrap] Shouldn't call constructor without name. Name is set to \"default\".\n";
-}
-
 FragTrap::FragTrap(const std::string& n) :
     ClapTrap(n)
 {
@@ -36,6 +30,6 @@ FragTrap::~FragTrap()
 
 void  FragTrap::highFivesGuys()
 {
-    std::cout << "[FragTrap] " << name << " requests a high five!\n";
+    std::cout << "[FragTrap] " << name << " requests a positive high five!\n";
 }
 
