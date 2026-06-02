@@ -1,5 +1,26 @@
 #include "Fixed.hpp"
 
+/*
+void	test_operators(Fixed& a, const Fixed& b)
+{
+	Fixed	c;
+
+	if (a < b)
+		std::cout << "Should print! a < b\n";
+	if (a > b)
+		std::cout << "Shouldnt print!\n";
+	if (a == c)
+		std::cout << "Should print! a==c \n";
+
+	c = a + b;
+	std::cout << c << "\n";
+	c = c - a;
+	std::cout << c << "\n";
+	c = c * a;
+	std::cout << c << "\n";
+}
+*/
+
 int main(void)
 {
     Fixed       a;

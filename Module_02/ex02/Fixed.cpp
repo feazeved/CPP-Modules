@@ -1,3 +1,5 @@
+#include <cmath>
+
 #include "Fixed.hpp"
 
 Fixed::Fixed() :
@@ -149,7 +151,7 @@ const Fixed&  Fixed::min(const Fixed& first, const Fixed& second)
 {
     return (first < second ? first : second);
 }
-    
+
 Fixed& Fixed::max(Fixed& first, Fixed& second)
 {
     return (first > second ? first : second);
