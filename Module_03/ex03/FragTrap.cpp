@@ -5,6 +5,9 @@
 FragTrap::FragTrap(const std::string& n) :
     ClapTrap(n)
 {
+	hp = 100;
+    ep = 100;
+    ad = 30;
     std::cout << "[FragTrap] Default Constructor called with name " << name << "!\n";
 }
 
@@ -32,4 +35,3 @@ void  FragTrap::highFivesGuys()
 {
     std::cout << "[FragTrap] " << name << " requests a positive high five!\n";
 }
-

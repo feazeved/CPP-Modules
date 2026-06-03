@@ -5,10 +5,10 @@
 
 #include "ClapTrap.hpp"
 
-class FragTrap : public ClapTrap {
+class FragTrap : virtual public ClapTrap {
 public:
     FragTrap(const std::string& n);
-    
+
     FragTrap(const FragTrap& other);
     FragTrap& operator=(const FragTrap& other);
 

@@ -6,10 +6,10 @@
 ScavTrap::ScavTrap(const std::string &n) :
 	ClapTrap(n)
 {
-	std::cout << "[ScavTrap] Default Constructor called with name " << name << "!\n";
 	hp = 100;
 	ep = 50;
 	ad = 20;
+	std::cout << "[ScavTrap] Default Constructor called with name " << name << "!\n";
 }
 
 ScavTrap::ScavTrap(const ScavTrap& other) :

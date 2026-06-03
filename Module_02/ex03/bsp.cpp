@@ -32,7 +32,7 @@ bool    bsp(Point const a, Point const b, Point const c, Point const point)
 
 	if (!area1 || !area2 || !area3)
 		return (false);
-	else if (area1 + area2 + area3 == total_area)
+	else if (fabsf((area1 + area2 + area3) - total_area) < 1e-4f)
 		return (true);
     return (false);
 }

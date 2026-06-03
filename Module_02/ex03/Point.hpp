@@ -16,8 +16,8 @@ public:
 
 
 private:
-    const Fixed x;
-    const Fixed y;
+    Fixed const x;
+    Fixed const y;
 
 };
 

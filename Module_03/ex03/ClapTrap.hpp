@@ -5,7 +5,6 @@
 
 class	ClapTrap {
 public:
-	ClapTrap();
 	ClapTrap(const std::string &n);
 
 	ClapTrap(const ClapTrap& other);

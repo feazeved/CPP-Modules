@@ -1,6 +1,6 @@
 CC = c++
 
-NAME = repetitive
+NAME = diamond
 
 OBJ_DIR = objects
 

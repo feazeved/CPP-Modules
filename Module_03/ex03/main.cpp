@@ -1,22 +1,27 @@
 #include <iostream>
 
-#include "ClapTrap.hpp"
-#include "ScavTrap.hpp"
-#include "FragTrap.hpp"
 #include "DiamondTrap.hpp"
 
 int main()
 {
     std::cout << "|----- Constructors -----|\n";
-    FragTrap    frag("Frag");
-    FragTrap    trap("Trap");
+    DiamondTrap	Diamond("diamond");
+    DiamondTrap	Trap("trap");
     std::cout << "\n";
-    FragTrap    copy(trap);
 
-    copy = frag;
-    std::cout << "\n\n|----- Testing value at vars -----|\n";
-    std::cout << frag.getName() << "\n" << trap.getName() << "\n" << copy.getName() << "\n";
+    DiamondTrap	Copy(Diamond);
+    Copy.whoAmI();
+    std::cout << "\n";
+    DiamondTrap	Assign("placeholder");
+    Assign = Trap;
+    Assign.whoAmI();
+    std::cout << "\n";
+    Assign.attack(Copy.getName());
 
-    std::cout << "\n\n|----- Destructors -----|\n";
+
+    std::cout << "\n\n";
+    Diamond.whoAmI();
+    Trap.whoAmI();
+    std::cout << "\n\n";
     return (0);
 }

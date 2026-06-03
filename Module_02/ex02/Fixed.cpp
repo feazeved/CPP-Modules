@@ -85,7 +85,7 @@ bool  Fixed::operator<=(const Fixed& other) const
 
 bool  Fixed::operator==(const Fixed& other) const
 {
-    return (this->toFloat() == other.toFloat());
+    return (this->value == other.value);
 }
 
 bool  Fixed::operator!=(const Fixed& other) const
@@ -95,25 +95,34 @@ bool  Fixed::operator!=(const Fixed& other) const
 
 Fixed Fixed::operator+(const Fixed& other) const
 {
-    return (this->toFloat() + other.toFloat());
+	Fixed	result;
+
+	result.setRawBits(this->value + other.value);
+    return (result);
 }
 
 Fixed Fixed::operator-(const Fixed& other) const
 {
+    Fixed	result;
 
-    return (this->toFloat() - other.toFloat());
+	result.setRawBits(this->value - other.value);
+    return (result);
 }
 
 Fixed Fixed::operator*(const Fixed& other) const
 {
+	Fixed	result;
 
-    return (this->toFloat() * other.toFloat());
+	result.setRawBits((long long)this->value * other.value >> fractional);
+    return (result);
 }
 
 Fixed Fixed::operator/(const Fixed& other) const
 {
+	Fixed	result;
 
-    return (this->toFloat() / other.toFloat());
+	result.setRawBits((long long)this->value << fractional / other.value);
+    return (result);
 }
 
 Fixed& Fixed::operator++()
