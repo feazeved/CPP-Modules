@@ -3,6 +3,8 @@
 
 #include "Fixed.hpp"
 
+const int	Fixed::fractional = 8;
+
 Fixed::Fixed() :
     value(0)
 {
@@ -69,4 +71,3 @@ std::ostream& operator<<(std::ostream& out, const Fixed& obj)
     out << obj.toFloat();
     return (out);
 }
-

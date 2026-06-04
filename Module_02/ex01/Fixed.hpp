@@ -19,7 +19,7 @@ public:
     int   toInt(void) const;
 
 private:
-    static const int  fractional = 8;
+    static const int  fractional;
     int               value;
 };
 

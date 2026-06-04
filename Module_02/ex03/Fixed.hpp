@@ -45,7 +45,7 @@ public:
     static const  Fixed&  max(const Fixed& first, const Fixed& second);
 
 private:
-    static const int  fractional = 8;
+    static const int  fractional;
     int               value;
 };
 
