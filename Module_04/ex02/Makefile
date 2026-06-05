@@ -1,0 +1,36 @@
+CC = c++
+
+NAME = brain
+
+OBJ_DIR = objects
+
+SRC = Animal.cpp Cat.cpp Dog.cpp Brain.cpp WrongAnimal.cpp WrongCat.cpp main.cpp
+
+OBJ = $(addprefix $(OBJ_DIR)/, $(SRC:.cpp=.o))
+
+CFLAGS = -Wall -Werror -Wextra -std=c++98
+
+all: $(NAME)
+
+$(NAME): $(OBJ)
+	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
+
+$(OBJ_DIR):
+	mkdir -p $(OBJ_DIR)
+
+$(OBJ_DIR)/%.o: %.cpp | $(OBJ_DIR)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+clean:
+	rm -rf $(OBJ_DIR)
+
+fclean: clean
+	rm -f $(NAME)
+
+re: fclean all
+
+run: re
+	clear
+	./polymorphism
+
+.PHONY: all clean fclean re

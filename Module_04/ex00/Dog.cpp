@@ -9,9 +9,9 @@ Dog::Dog() :
 	std::cout << "[Dog] DEFAULT constructor called!\n";
 }
 
-Dog::Dog(const Dog& other)
+Dog::Dog(const Dog& other) :
+	Animal(other)
 {
-	type = other.type;
 	std::cout << "[Dog] COPY constructor called!\n";
 }
 
@@ -21,7 +21,7 @@ Dog& Dog::operator=(const Dog& other)
 	if (this == &other)
 		return (*this);
 
-	type = other.type;
+	Animal::operator=(other);
 	return (*this);
 }
 

@@ -9,9 +9,9 @@ Cat::Cat() :
 	std::cout << "[Cat] DEFAULT constructor called!\n";
 }
 
-Cat::Cat(const Cat& other)
+Cat::Cat(const Cat& other) :
+	Animal(other)
 {
-	type = other.type;
 	std::cout << "[Cat] COPY constructor called!\n";
 }
 
@@ -21,7 +21,7 @@ Cat& Cat::operator=(const Cat& other)
 	if (this == &other)
 		return (*this);
 
-	type = other.type;
+	Animal::operator=(other);
 	return (*this);
 }
 

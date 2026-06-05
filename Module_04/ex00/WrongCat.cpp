@@ -2,6 +2,7 @@
 #include <string>
 
 #include "WrongCat.hpp"
+#include "WrongAnimal.hpp"
 
 WrongCat::WrongCat() :
 	WrongAnimal("WrongCat")
@@ -9,7 +10,8 @@ WrongCat::WrongCat() :
 	std::cout << "[WrongCat] DEFAULT constructor called!\n";
 }
 
-WrongCat::WrongCat(const WrongCat& other)
+WrongCat::WrongCat(const WrongCat& other) :
+	WrongAnimal(other)
 {
 	type = other.type;
 	std::cout << "[WrongCat] COPY constructor called!\n";
@@ -21,7 +23,8 @@ WrongCat& WrongCat::operator=(const WrongCat& other)
 	if (this == &other)
 		return (*this);
 
-	type = other.type;
+	WrongAnimal::operator=(other);
+
 	return (*this);
 }
 
