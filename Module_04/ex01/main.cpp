@@ -60,24 +60,24 @@ int	main()
 	}
 
 
-		dog->getBrain()->setIdea(0, "blue");
-		std::cout << "\noriginal's idea: " << dog->getBrain()->getIdea(0) << "\n";
-		std::cout << "copy's idea: " << copy->getBrain()->getIdea(0) << "\n";
-		std::cout << "\nChanging value at copy...\n\n";
-		copy->getBrain()->setIdea(0, "red");
-		std::cout << "original's idea: " << dog->getBrain()->getIdea(0) << "\n";
-		std::cout << "copy's idea: " << copy->getBrain()->getIdea(0) << "\n";
+	dog->getBrain()->setIdea(0, "blue");
+	std::cout << "\noriginal's idea: " << dog->getBrain()->getIdea(0) << "\n";
+	std::cout << "copy's idea: " << copy->getBrain()->getIdea(0) << "\n";
+	std::cout << "\nChanging value at copy...\n\n";
+	copy->getBrain()->setIdea(0, "red");
+	std::cout << "original's idea: " << dog->getBrain()->getIdea(0) << "\n";
+	std::cout << "copy's idea: " << copy->getBrain()->getIdea(0) << "\n";
 
-		std::cout << "\n-----TESTING ASSIGNMENT-----\n";
-		*copy = *dog;
-		std::cout << "\noriginal's idea: " << dog->getBrain()->getIdea(0) << "\n";
-		std::cout << "assignment's idea: " << copy->getBrain()->getIdea(0) << "\n";
+	std::cout << "\n-----TESTING ASSIGNMENT-----\n";
+	*copy = *dog;
+	std::cout << "\noriginal's idea: " << dog->getBrain()->getIdea(0) << "\n";
+	std::cout << "assignment's idea: " << copy->getBrain()->getIdea(0) << "\n";
 
 
-		std::cout << "\n-----DESTRUCTORS-----\n";
-		delete dog;
-		std::cout << "\n";
-		delete copy;
+	std::cout << "\n-----DESTRUCTORS-----\n";
+	delete dog;
+	std::cout << "\n";
+	delete copy;
 
 	return (0);
 }

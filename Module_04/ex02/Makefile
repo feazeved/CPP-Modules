@@ -1,6 +1,6 @@
 CC = c++
 
-NAME = brain
+NAME = abstract
 
 OBJ_DIR = objects
 
