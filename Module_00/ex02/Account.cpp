@@ -1,6 +1,5 @@
 #include <iostream>
 #include <ctime>
-#include <iomanip>
 
 #include "Account.hpp"
 
@@ -20,7 +19,7 @@ Account::Account(void) :
 }
 
 Account::Account(int initial_deposit) :
-    _accountIndex(_nbAccounts), _amount(initial_deposit), _nbDeposits(0), _nbWithdrawals(0) 
+    _accountIndex(_nbAccounts), _amount(initial_deposit), _nbDeposits(0), _nbWithdrawals(0)
 {
     _displayTimestamp();
     std::cout << "index:" << _accountIndex << ";"

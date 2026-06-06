@@ -1,6 +1,5 @@
 #include <cstddef>
 #include <iostream>
-#include <new>
 
 #include "Brain.hpp"
 

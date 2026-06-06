@@ -29,8 +29,4 @@ fclean: clean
 
 re: fclean all
 
-run: re
-	clear
-	./polymorphism
-
 .PHONY: all clean fclean re
