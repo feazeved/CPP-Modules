@@ -6,18 +6,15 @@
 Cure::Cure() :
 	AMateria("cure")
 {
-	std::cout << "[Cure] DEFAULT constructor called!\n";
 }
 
 Cure::Cure(const Cure& other) :
-	AMateria("cure")
+	AMateria(other)
 {
-	std::cout << "[Cure] COPY constructor called!\n";
 }
 
 Cure& Cure::operator=(const Cure& other)
 {
-	std::cout << "[Cure] ASSIGNMENT copy constructor called!\n";
 	if (this == &other)
 		return (*this);
 
@@ -28,7 +25,6 @@ Cure& Cure::operator=(const Cure& other)
 
 Cure::~Cure()
 {
-	std::cout << "[Cure] DESTRUCTOR called!\n";
 }
 
 AMateria*	Cure::clone() const

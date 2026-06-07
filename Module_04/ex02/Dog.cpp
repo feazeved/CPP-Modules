@@ -1,5 +1,4 @@
 #include <iostream>
-#include <new>
 #include <string>
 
 #include "Dog.hpp"

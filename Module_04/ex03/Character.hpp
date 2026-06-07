@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cstddef>
 #include <string>
 
 #include "ICharacter.hpp"
@@ -21,6 +22,8 @@ class Character : public ICharacter {
 	virtual void				use(int idx, ICharacter& target);
 
 private:
-	std::string	name;
-	AMateria*	inventory[4];
+	std::string					name;
+	AMateria*					inventory[4];
+	AMateria*					floor[100];
+	size_t						floorCount;
 };

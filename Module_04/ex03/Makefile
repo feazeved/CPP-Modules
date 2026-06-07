@@ -4,11 +4,11 @@ NAME = interface
 
 OBJ_DIR = objects
 
-SRC = AMateria.cpp Character.cpp MateriaSource.cpp Ice.cpp Cure.cpp
+SRC = AMateria.cpp Character.cpp MateriaSource.cpp Ice.cpp Cure.cpp main.cpp
 
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRC:.cpp=.o))
 
-CFLAGS = -Wall -Werror -Wextra -std=c++98
+CFLAGS = -Wall -Werror -Wextra -std=c++98 -fsanitize=address -g
 
 all: $(NAME)
 

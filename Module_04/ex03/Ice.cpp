@@ -6,18 +6,15 @@
 Ice::Ice() :
 	AMateria("ice")
 {
-	std::cout << "[Ice] DEFAULT constructor called!\n";
 }
 
 Ice::Ice(const Ice& other) :
 	AMateria(other)
 {
-	std::cout << "[Ice] COPY constructor called!\n";
 }
 
 Ice& Ice::operator=(const Ice& other)
 {
-	std::cout << "[Ice] ASSIGNMENT copy constructor called!\n";
 	if (this == &other)
 		return (*this);
 
@@ -28,7 +25,6 @@ Ice& Ice::operator=(const Ice& other)
 
 Ice::~Ice()
 {
-	std::cout << "[Ice] DESTRUCTOR called!\n";
 }
 
 AMateria*	Ice::clone() const
