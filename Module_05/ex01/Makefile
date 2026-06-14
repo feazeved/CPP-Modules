@@ -1,10 +1,10 @@
 CC = c++
 
-NAME = interface
+NAME = form
 
 OBJ_DIR = objects
 
-SRC = AMateria.cpp Character.cpp MateriaSource.cpp Ice.cpp Cure.cpp main.cpp
+SRC = Bureaucrat.cpp Form.cpp main.cpp
 
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRC:.cpp=.o))
 
