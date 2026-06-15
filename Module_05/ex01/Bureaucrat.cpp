@@ -1,7 +1,11 @@
-#include "Bureaucrat.hpp"
+#include <exception>
 #include <ostream>
+#include <iostream>
 #include <string>
 
+#include "Bureaucrat.hpp"
+
+// ORTHODOX CANONICAL IMPLEMENTATION
 Bureaucrat::Bureaucrat(const std::string& n, int g) :
 	name(n), grade(g)
 {
@@ -14,7 +18,6 @@ Bureaucrat::Bureaucrat(const std::string& n, int g) :
 Bureaucrat::Bureaucrat(const Bureaucrat& other) :
 	name(other.name), grade(other.grade) { }
 
-// Only copy the grade since name is constant!
 Bureaucrat& Bureaucrat::operator=(const Bureaucrat& other)
 {
 	if (this == &other)
@@ -26,9 +29,11 @@ Bureaucrat& Bureaucrat::operator=(const Bureaucrat& other)
 
 Bureaucrat::~Bureaucrat() { }
 
+// GETTERS
 const std::string	Bureaucrat::getName() const { return(name); }
 int					Bureaucrat::getGrade() const { return(grade); }
 
+// PUBLIC METHODS
 void				Bureaucrat::incrementGrade()
 {
 	if (grade - 1 < 1)
@@ -43,7 +48,21 @@ void				Bureaucrat::decrementGrade()
 	grade += 1;
 }
 
+void				Bureaucrat::signForm(Form& form) const
+{
+	try {
+		form.Form::beSigned(*this);
 
+		std::cout << name << " signed " << form.getName() << "\n";
+
+	} catch (const std::exception& e) {
+		std::cerr << name << " couldn't sign " << form.getName() << " because ";
+		std::cerr << e.what() << "\n";
+	}
+}
+
+// CUSTOM EXCEPTION CLASSES
+// too high exception
 Bureaucrat::GradeTooHighException::GradeTooHighException(const std::string& name) :
 	message(name + "'s grade is too high!") { }
 
@@ -54,6 +73,7 @@ const char* Bureaucrat::GradeTooHighException::what() const throw()
 
 Bureaucrat::GradeTooHighException::~GradeTooHighException() throw() { }
 
+// too low exception
 Bureaucrat::GradeTooLowException::GradeTooLowException(const std::string& name) :
 	message(name + "'s grade is too high!") { }
 
@@ -64,6 +84,7 @@ const char* Bureaucrat::GradeTooLowException::what() const throw()
 
 Bureaucrat::GradeTooLowException::~GradeTooLowException() throw() { }
 
+// OVERLOAD TO PRINT INFO
 std::ostream&	operator<<(std::ostream& os, const Bureaucrat& b)
 {
 	os << b.getName() << ", bureaucrat grade " << b.getGrade() << "\n";
