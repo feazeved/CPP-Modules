@@ -1,13 +1,18 @@
-#include "Bureaucrat.hpp"
 #include <ostream>
 #include <string>
 
+#include "Bureaucrat.hpp"
+
+const int	Bureaucrat::max_grade = 1;
+const int	Bureaucrat::min_grade = 150;
+
+// ORTHODOX CANONICAL IMPLEMENTATION
 Bureaucrat::Bureaucrat(const std::string& n, int g) :
 	name(n), grade(g)
 {
-	if (grade < 1)
+	if (grade < max_grade)
 		throw Bureaucrat::GradeTooHighException(name);
-	else if (grade > 150)
+	else if (grade > min_grade)
 		throw Bureaucrat::GradeTooLowException(name);
 }
 
@@ -26,24 +31,28 @@ Bureaucrat& Bureaucrat::operator=(const Bureaucrat& other)
 
 Bureaucrat::~Bureaucrat() { }
 
+// GETTERS
 const std::string	Bureaucrat::getName() const { return(name); }
 int					Bureaucrat::getGrade() const { return(grade); }
 
+// PUBLIC METHODS
 void				Bureaucrat::incrementGrade()
 {
-	if (grade - 1 < 1)
+	if (grade - 1 < max_grade)
 		throw GradeTooHighException(name);
 	grade -= 1;
 }
 
 void				Bureaucrat::decrementGrade()
 {
-	if (grade + 1 > 150)
+	if (grade + 1 > min_grade)
 		throw GradeTooLowException(name);
 	grade += 1;
 }
 
 
+// CUSTOM EXCEPTION CLASSES
+// too high exception
 Bureaucrat::GradeTooHighException::GradeTooHighException(const std::string& name) :
 	message(name + "'s grade is too high!") { }
 
@@ -54,6 +63,7 @@ const char* Bureaucrat::GradeTooHighException::what() const throw()
 
 Bureaucrat::GradeTooHighException::~GradeTooHighException() throw() { }
 
+// too low exception
 Bureaucrat::GradeTooLowException::GradeTooLowException(const std::string& name) :
 	message(name + "'s grade is too high!") { }
 
@@ -64,6 +74,7 @@ const char* Bureaucrat::GradeTooLowException::what() const throw()
 
 Bureaucrat::GradeTooLowException::~GradeTooLowException() throw() { }
 
+// OVERLOAD TO PRINT INFO
 std::ostream&	operator<<(std::ostream& os, const Bureaucrat& b)
 {
 	os << b.getName() << ", bureaucrat grade " << b.getGrade() << "\n";

@@ -19,6 +19,8 @@ public:
 	void				decrementGrade();
 
 private:
+	static const int	max_grade;
+	static const int	min_grade;
 	const std::string	name;
 	int					grade;
 

@@ -1,14 +1,17 @@
 #include "Form.hpp"
 #include "Bureaucrat.hpp"
 
+const int	Form::max_grade = 1;
+const int	Form::min_grade = 150;
+
 // ORTHODOX CANONICAL IMPLEMENTATION
 Form::Form(const std::string& n, const int gts, const int gte) :
 	name(n), grade_to_sign(gts), grade_to_exec(gte), is_signed(false)
 {
-	if (grade_to_sign < 1 || grade_to_exec < 1)
+	if (grade_to_sign < max_grade || grade_to_exec < max_grade)
 		throw Form::GradeTooHighException(name);
 
-	else if (grade_to_sign > 150 || grade_to_exec > 150)
+	else if (grade_to_sign > min_grade || grade_to_exec > min_grade)
 		throw Form::GradeTooLowException(name);
 }
 

@@ -22,6 +22,8 @@ public:
 	void				beSigned(const Bureaucrat& b);
 
 private:
+	static const int	max_grade;
+	static const int	min_grade;
 	const std::string	name;
 	const int			grade_to_sign;
 	const int			grade_to_exec;
