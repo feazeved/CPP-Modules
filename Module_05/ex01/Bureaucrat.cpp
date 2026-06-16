@@ -39,14 +39,14 @@ int					Bureaucrat::getGrade() const { return(grade); }
 // PUBLIC METHODS
 void				Bureaucrat::incrementGrade()
 {
-	if (grade - 1 < max_grade)
+	if (grade == max_grade)
 		throw GradeTooHighException(name);
 	grade -= 1;
 }
 
 void				Bureaucrat::decrementGrade()
 {
-	if (grade + 1 > min_grade)
+	if (grade == min_grade)
 		throw GradeTooLowException(name);
 	grade += 1;
 }

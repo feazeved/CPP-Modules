@@ -1,5 +1,6 @@
 #pragma once
 
+#include <exception>
 #include <ostream>
 #include <string>
 
@@ -20,7 +21,7 @@ public:
 	bool				getIs_signed() const;
 
 	void				beSigned(const Bureaucrat& b);
-	void				beExecuted(Bureaucrat const & executor);
+	void				beExecuted(Bureaucrat const & executor) const;
 	virtual void		execute(Bureaucrat const & executor) const = 0;
 
 private:
@@ -35,9 +36,9 @@ private:
 public:
 	class GradeTooHighException : public std::exception {
 		public:
-			GradeTooHighException(const std::string& name);
-			virtual const char* what() const throw();
+			GradeTooHighException(const std::string& message);
 			virtual ~GradeTooHighException() throw();
+			virtual const char* what() const throw();
 
 		private:
 			std::string	message;
@@ -45,12 +46,22 @@ public:
 
 	class GradeTooLowException : public std::exception {
 		public:
-			GradeTooLowException(const std::string& name);
-			virtual const char* what() const throw();
+			GradeTooLowException(const std::string& message);
 			virtual ~GradeTooLowException() throw();
+			virtual const char* what() const throw();
 
 		private:
 			std::string message;
+	};
+
+	class InvalidFormException : public std::exception {
+		public:
+			InvalidFormException(const std::string& message);
+			virtual	~InvalidFormException() throw();
+			virtual const char*	what() const throw();
+
+		private:
+			std::string	message;
 	};
 };
 

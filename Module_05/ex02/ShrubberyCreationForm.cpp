@@ -2,7 +2,6 @@
 #include <fstream>
 
 #include "ShrubberyCreationForm.hpp"
-#include "AForm.hpp"
 
 const int	ShrubberyCreationForm::gtSignShrubbery = 145;
 const int	ShrubberyCreationForm::gtExecShrubbery = 137;
@@ -12,7 +11,7 @@ ShrubberyCreationForm::ShrubberyCreationForm(const std::string& t) :
 	AForm("Shrubbery Creation", gtSignShrubbery, gtExecShrubbery), target(t + "_shrubbery") { }
 
 ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm& other) :
-	AForm(other.getName(), other.getGrade_to_sign(), other.getGrade_to_exec()), target(other.target) { }
+	AForm(other), target(other.target) { }
 
 ShrubberyCreationForm&	ShrubberyCreationForm::operator=(const ShrubberyCreationForm& other)
 {
@@ -27,10 +26,12 @@ ShrubberyCreationForm&	ShrubberyCreationForm::operator=(const ShrubberyCreationF
 
 ShrubberyCreationForm::~ShrubberyCreationForm() { }
 
-
 // PUBLIC METHODS
 void	ShrubberyCreationForm::execute(Bureaucrat const & executor) const
 {
+	AForm::beExecuted(executor);
+
+
 	std::ofstream	file;
 
 	file.open(target);

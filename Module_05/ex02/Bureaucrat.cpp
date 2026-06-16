@@ -42,14 +42,14 @@ int					Bureaucrat::getGrade() const { return(grade); }
 // PUBLIC METHODS
 void				Bureaucrat::incrementGrade()
 {
-	if (grade - 1 < max_grade)
+	if (grade == max_grade)
 		throw GradeTooHighException(name);
 	grade -= 1;
 }
 
 void				Bureaucrat::decrementGrade()
 {
-	if (grade + 1 > min_grade)
+	if (grade == min_grade)
 		throw GradeTooLowException(name);
 	grade += 1;
 }
@@ -58,12 +58,25 @@ void				Bureaucrat::signForm(AForm& form) const
 {
 	try {
 		form.AForm::beSigned(*this);
-
 		std::cout << name << " signed " << form.getName() << "\n";
 
 	} catch (const std::exception& e) {
-		std::cerr << name << " couldn't sign " << form.getName() << " because ";
-		std::cerr << e.what() << "\n";
+
+		std::cerr << name << " couldn't sign " << form.getName() << " because "
+				  << e.what() << "\n";
+	}
+}
+
+void				Bureaucrat::executeForm(AForm const & form) const
+{
+	try {
+		form.execute(*this);
+		std::cout << name << " executed " << form.getName() << "\n";
+
+	} catch (std::exception& e) {
+
+		std::cerr << name << " couldn't execute " << form.getName() << " because "
+				  << e.what() << "\n";
 	}
 }
 

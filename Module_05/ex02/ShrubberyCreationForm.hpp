@@ -12,13 +12,12 @@ public:
 	ShrubberyCreationForm&	operator=(const ShrubberyCreationForm& other);
 	~ShrubberyCreationForm();
 
-	virtual void	beSigned(const Bureaucrat& b) const;
 	virtual void	execute(Bureaucrat const & executor) const;
 
 
 private:
 	static const int	gtSignShrubbery;
 	static const int	gtExecShrubbery;
-	std::string	target;
+	std::string			target;
 
 };
