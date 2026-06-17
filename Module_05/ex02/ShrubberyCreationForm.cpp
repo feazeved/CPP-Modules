@@ -8,7 +8,7 @@ const int	ShrubberyCreationForm::gtExecShrubbery = 137;
 
 // ORTHODOX CANONICAL IMPLEMENTATION
 ShrubberyCreationForm::ShrubberyCreationForm(const std::string& t) :
-	AForm("Shrubbery Creation", gtSignShrubbery, gtExecShrubbery), target(t + "_shrubbery") { }
+	AForm("shrubbery creation", gtSignShrubbery, gtExecShrubbery), target(t + "_shrubbery") { }
 
 ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm& other) :
 	AForm(other), target(other.target) { }

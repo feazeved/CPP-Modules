@@ -8,7 +8,7 @@ const int	RobotomyRequestForm::gtExecRobotomy = 45;
 
 // ORTHODOX CANONICAL IMPLEMENTATION
 RobotomyRequestForm::RobotomyRequestForm(const std::string& t) :
-	AForm("Robotomy Request", gtSignRobotomy, gtExecRobotomy), target(t) { }
+	AForm("robotomy request", gtSignRobotomy, gtExecRobotomy), target(t) { }
 
 RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm& other) :
 	AForm(other), target(other.target) { }

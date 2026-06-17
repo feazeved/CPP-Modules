@@ -38,6 +38,9 @@ bool		AForm::getIs_signed() const { return (is_signed); }
 // PUBLIC METHODS
 void		AForm::beSigned(const Bureaucrat& b)
 {
+	if (is_signed == true)
+		throw AForm::AlreadySignedException();
+
 	if (b.getGrade() > grade_to_sign)
 		throw AForm::GradeTooLowException(b.getName() + "'s grade is too low!");
 	is_signed = true;
@@ -45,10 +48,10 @@ void		AForm::beSigned(const Bureaucrat& b)
 
 void		AForm::beExecuted(Bureaucrat const & executor) const
 {
-	if (executor.getGrade() > grade_to_exec)
-		throw AForm::GradeTooLowException(executor.getName() + "'s grade is too low!");
-	else if (!is_signed)
+	if (!is_signed)
 		throw AForm::InvalidFormException(executor.getName() + " cannot execute an unsigned form!");
+	else if (executor.getGrade() > grade_to_exec)
+		throw AForm::GradeTooLowException(executor.getName() + "'s grade is too low!");
 }
 
 // CUSTOM EXCEPTION CLASSES
@@ -84,6 +87,11 @@ const char* AForm::InvalidFormException::what() const throw()
 }
 
 AForm::InvalidFormException::~InvalidFormException() throw() { }
+
+const char*	AForm::AlreadySignedException::what() const throw()
+{
+	return ("this form is already signed!");
+}
 
 // OVERLOAD TO PRINT INFO
 std::ostream&	operator<<(std::ostream& os, const AForm& f)
