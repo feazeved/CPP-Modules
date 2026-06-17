@@ -5,44 +5,59 @@
 
 int	main()
 {
-	std::cout << "\n-----Testing increment throw-----\n\n";
+	Bureaucrat*	Wallace = NULL;
+	Bureaucrat*	Jenna = NULL;
+	std::cout << "\n-----Testing exception at creation-----\n\n";
 	try {
-		Bureaucrat	Afonso("Afonso", 3);
-		Bureaucrat	Bia("Bia" , 2);
-
-		Afonso.incrementGrade();
-		Afonso.incrementGrade();
-		std::cout << Afonso;
-
-		Bia.incrementGrade();
-		Bia.incrementGrade();
-		std::cout << Bia;
+		Wallace = new Bureaucrat("Wallace", 3); // NEW
+		Bureaucrat	Afonso("Afonso", 0);
 
 	} catch (std::exception& e) {
+		std::cerr << "Exception: " << e.what() << "\n";
+	}
+	try {
+		Jenna = new Bureaucrat("Jenna", 150); // NEW
+		Bureaucrat	Bia("Bia", 151);
 
-		std::cerr << "Error: " << e.what() << "\n";
+	} catch (std::exception& e) {
+		std::cerr << "Exception: " << e.what() << "\n";
 	}
 
-	std::cout << "\n-----Testing COPY and ASSIGN-----\n\n";
+	std::cout << "\n";
+	std::cout << Wallace->getName() << " and " << Jenna->getName() << " are alloc'd\n\n";
+
+	std::cout << *Jenna;
+	std::cout << *Wallace;
+
+
+	std::cout << "\n-----Testing increment / decrement-----\n\n";
 
 	try {
-		Bureaucrat	Main("Main", 149);
-		Bureaucrat	Copy(Main);
-		Bureaucrat	Assign("Assign", 10);
+		Wallace->incrementGrade();
+		std::cout << *Wallace;
 
-		Main.decrementGrade();
+		Wallace->incrementGrade();
+		Wallace->incrementGrade();
 
-		Assign = Main;
-		std::cout << Main;
-		std::cout << Copy;
-		std::cout << Assign;
+	} catch (std::exception& e) {
+		std::cerr << "Exception: " << e.what() << "\n";
+	}
 
-		Assign.decrementGrade();
-	} catch (const std::exception& e) {
+	std::cout << "\n";
 
-		std::cerr << "Error: " << e.what() << "\n";
+	try {
+		Jenna->incrementGrade();
+		std::cout << *Jenna;
+
+		Jenna->decrementGrade();
+
+	} catch (std::exception& e) {
+		std::cerr << "Exception: " << e.what() << "\n";
 	}
 
 	std::cout << std::endl;
+
+	delete Jenna, delete Wallace;
+
 	return (0);
 }

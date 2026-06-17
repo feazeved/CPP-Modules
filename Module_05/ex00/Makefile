@@ -21,6 +21,11 @@ $(OBJ_DIR):
 $(OBJ_DIR)/%.o: %.cpp | $(OBJ_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
+run:
+	make re
+	clear
+	./$(NAME)
+
 clean:
 	rm -rf $(OBJ_DIR)
 
@@ -29,4 +34,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re run
