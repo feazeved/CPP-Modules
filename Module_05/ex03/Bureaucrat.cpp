@@ -94,7 +94,7 @@ Bureaucrat::GradeTooHighException::~GradeTooHighException() throw() { }
 
 // too low exception
 Bureaucrat::GradeTooLowException::GradeTooLowException(const std::string& name) :
-	message(name + "'s grade is too high!") { }
+	message(name + "'s grade is too low!") { }
 
 const char* Bureaucrat::GradeTooLowException::what() const throw()
 {
