@@ -14,7 +14,6 @@ public:
 
 	virtual void	execute(Bureaucrat const & executor) const;
 
-
 private:
 	static const int	gtSignShrubbery;
 	static const int	gtExecShrubbery;

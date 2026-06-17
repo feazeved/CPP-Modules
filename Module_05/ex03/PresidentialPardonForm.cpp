@@ -7,7 +7,7 @@ const int	PresidentialPardonForm::gtExecPresidential = 5;
 
 // ORTHODOX CANONICAL IMPLEMENTATION
 PresidentialPardonForm::PresidentialPardonForm(const std::string& t) :
-	AForm("Presidential Pardon", gtSignPresidential, gtExecPresidential), target(t) { }
+	AForm("presidential pardon", gtSignPresidential, gtExecPresidential), target(t) { }
 
 PresidentialPardonForm::PresidentialPardonForm(const PresidentialPardonForm& other) :
 	AForm(other), target(other.target) { }

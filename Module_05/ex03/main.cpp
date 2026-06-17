@@ -3,9 +3,6 @@
 
 #include "Bureaucrat.hpp"
 #include "Intern.hpp"
-#include "PresidentialPardonForm.hpp"
-#include "ShrubberyCreationForm.hpp"
-#include "RobotomyRequestForm.hpp"
 
 int	main()
 {
@@ -19,8 +16,11 @@ int	main()
 		eu.signForm(*rrf);
 		eu.executeForm(*rrf);
 	} catch (std::exception& e) {
-
+		std::cerr << "Exception: " << e.what() << "\n";
 
 	}
+
+	delete rrf;
+
 	return (0);
 }
