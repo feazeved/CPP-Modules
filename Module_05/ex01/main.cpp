@@ -6,22 +6,25 @@
 
 int	main()
 {
+	Bureaucrat	Bia("Bia", 3);
+	Bureaucrat	Felipe("Felipe", 20);
+
+	std::cout << "\n-----Testing forms-----\n\n";
 	try {
-		Bureaucrat	Bia("Bia", 5);
-		Bureaucrat	Felipe("Felipe", 11);
-		Form		Arara("Arara", 10, 10);
+		Form		Arara("Arara", 15, 5);
 
-		std::cout << Bia;
-		std::cout << Arara;
+		std::cout << Bia << "\n";
+		std::cout << Arara << "\n";
 
-		Bia.signForm(Arara);
 		Felipe.signForm(Arara);
+		Bia.signForm(Arara);
 
+		std::cout << "\n";
 		std::cout << Arara;
 
 
 	} catch (std::exception& e) {
-		std::cerr << "Error: " << e.what() << "\n";
+		std::cerr << "Exception: " << e.what() << "\n";
 	}
 
 	return (0);

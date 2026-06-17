@@ -1,5 +1,6 @@
 #pragma once
 
+#include <exception>
 #include <ostream>
 #include <string>
 
@@ -49,6 +50,11 @@ public:
 
 		private:
 			std::string message;
+	};
+
+	class AlreadySignedException : public std::exception {
+		public:
+			virtual const char* what() const throw();
 	};
 };
 
