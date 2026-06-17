@@ -21,6 +21,11 @@ $(OBJ_DIR):
 $(OBJ_DIR)/%.o: %.cpp | $(OBJ_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
+run:
+	make re
+	clear
+	./$(NAME)
+
 clean:
 	rm -rf $(OBJ_DIR)
 
