@@ -27,5 +27,7 @@ int	main()
 		std::cerr << "Exception: " << e.what() << "\n";
 	}
 
+	std::cout << std::endl;
+
 	return (0);
 }
