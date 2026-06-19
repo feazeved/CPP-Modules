@@ -50,6 +50,8 @@ Character& Character::operator=(const Character& other)
 	for (size_t i = 0; i < 4; i++){
 		if (other.inventory[i])
 			inventory[i] = other.inventory[i]->clone();
+		else
+			inventory[i] = NULL;
 	}
 	return (*this);
 }
@@ -76,6 +78,7 @@ void		Character::equip(AMateria* m)
 			return ;
 		}
 	}
+	delete m;
 }
 
 void		Character::unequip(int idx)

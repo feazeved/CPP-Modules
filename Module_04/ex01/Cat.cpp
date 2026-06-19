@@ -29,8 +29,6 @@ Cat& Cat::operator=(const Cat& other)
 
 	Animal::operator=(other);
 
-	delete brain;
-
 	if (!other.brain)
 	{
 		delete brain;

@@ -1,8 +1,9 @@
 #pragma once
 
 #include "AMateria.hpp"
+#include "ICharacter.hpp"
 
-class Cure : public AMateria{
+class Cure : public AMateria {
 public:
 	Cure();
 	Cure(const Cure& other);
