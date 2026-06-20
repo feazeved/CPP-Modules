@@ -12,7 +12,7 @@ public:
 
 	};
 
-	static void	convert(const std::string& str);
+	static void	convert(std::string str);
 
 private:
 	ScalarConverter();
