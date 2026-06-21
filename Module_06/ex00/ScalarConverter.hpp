@@ -8,13 +8,8 @@ public:
 	ScalarConverter& operator=(const ScalarConverter& other);
 	~ScalarConverter();
 
-	enum printable_types {
-
-	};
-
 	static void	convert(std::string str);
 
 private:
 	ScalarConverter();
-	static const std::string	digits;
 };

@@ -8,8 +8,6 @@
 
 #include "ScalarConverter.hpp"
 
-const std::string ScalarConverter::digits("0123456789");
-
 // ORTHODOX CANONICAL IMPLEMENTATION
 ScalarConverter::ScalarConverter() { }
 ScalarConverter::ScalarConverter(const ScalarConverter& other) { (void)other; }
@@ -159,7 +157,7 @@ void	ScalarConverter::convert(std::string str)
 		return ;
 
 	errno = 0;
-	if (std::isprint(str.at(0)) && str.length() == 1)
+	if (std::isprint(str.at(0)) && str.length() == 1 && !std::isdigit(str.at(0)))
 		value = static_cast<double>(str.at(0));
 	else
 	{
