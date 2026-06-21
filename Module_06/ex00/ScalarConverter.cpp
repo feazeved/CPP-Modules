@@ -4,6 +4,7 @@
 #include <limits>
 #include <errno.h>
 #include <cstdlib>
+#include <math.h>
 
 #include "ScalarConverter.hpp"
 
@@ -32,6 +33,11 @@ static void	stt_trim(std::string& str)
 
 	begin = str.c_str();
 	start_pos = str.find_first_not_of(" ");
+	if (start_pos == std::string::npos)
+	{
+		str.clear();
+		return ;
+	}
 
 	toDelete = static_cast<size_t>((begin + start_pos) - begin);
 	str.erase(0, toDelete);
@@ -50,6 +56,8 @@ static void	stt_trim(std::string& str)
 
 static bool stt_isHex(const std::string& str)
 {
+	if (str.length() < 2)
+		return (false);
 	if (str.at(0) == '0' && (str.at(1) == 'x' || str.at(1) == 'X'))
 		return (true);
 	return (false);
@@ -57,15 +65,18 @@ static bool stt_isHex(const std::string& str)
 
 static bool	stt_isOct(const std::string& str)
 {
+	if (str.length() < 2)
+		return (false);
 	if (str.at(0) == '0' && (str.at(1) >= '0' && str.at(1) <= '9'))
 		return (true);
 	return (false);
 }
 
-static bool	stt_strtodInvalid(const char* startptr, char *endptr)
+static bool	stt_strtodInvalid(const char* startptr, char *endptr, bool& overflow)
 {
-	if (errno == ERANGE
-		|| startptr == endptr
+	if (errno == ERANGE)
+		overflow = true;
+	else if (startptr == endptr
 		|| (*endptr && *endptr != 'f')
 		|| (*endptr == 'f' && *(endptr + 1)))
 	{
@@ -77,10 +88,12 @@ static bool	stt_strtodInvalid(const char* startptr, char *endptr)
 
 static void	stt_printChar(const double& value)
 {
-	char	c = static_cast<unsigned char>(value);
+	unsigned char	c = static_cast<unsigned char>(value);
 
 	std::cout << "char: ";
-	if (value != value)
+	if (value != value
+		|| value < std::numeric_limits<unsigned char>::min()
+		|| value > std::numeric_limits<unsigned char>::max())
 		std::cout << "impossible";
 	else if (!std::isprint(c))
 		std::cout << "Non displayable";
@@ -110,9 +123,9 @@ static void	stt_printFloat(const double& value)
 	float	f = static_cast<float>(value);
 
 	std::cout << "float: ";
-	if (value != value
-		|| value < std::numeric_limits<float>::min()
-		|| value > std::numeric_limits<float>::max())
+	if (value == value && !isinf(value)
+		&& (value < -std::numeric_limits<float>::max()
+			|| value > std::numeric_limits<float>::max()))
 		std::cout << "impossible";
 	else
 		std::cout << f << "f";
@@ -120,11 +133,11 @@ static void	stt_printFloat(const double& value)
 	std::cout << "\n";
 }
 
-static void	stt_printDouble(const double& value)
+static void	stt_printDouble(const double& value, const bool& overflow)
 {
 	std::cout << "double: ";
 
-	if (value != value)
+	if (overflow)
 		std::cout << "impossible";
 	else
 		std::cout << value;
@@ -139,23 +152,34 @@ void	ScalarConverter::convert(std::string str)
 	const char* startptr = str.c_str();
 	char*		endptr = NULL;
 	double		value;
+	bool		overflow = false;
 
 	stt_trim(str);
 	if (str.empty() || stt_isHex(str) || stt_isOct(str))
 		return ;
 
 	errno = 0;
-	if (std::isprint(str.at(0)) && !str.at(1))
+	if (std::isprint(str.at(0)) && str.length() == 1)
 		value = static_cast<double>(str.at(0));
 	else
 	{
 		value = std::strtod(startptr, &endptr);
-		if (stt_strtodInvalid(startptr, endptr))
+		if (stt_strtodInvalid(startptr, endptr, overflow))
 			return ;
 	}
 
+	if (overflow)
+		value = std::numeric_limits<double>::max();
+
 	stt_printChar(value);
 	stt_printInt(value);
+
+	std::streamsize	original_precision = std::cout.precision();
+	std::cout << std::fixed << std::setprecision(1);
+
 	stt_printFloat(value);
-	stt_printDouble(value);
+	stt_printDouble(value, overflow);
+
+	std::cout.unsetf(std::ios::fixed);
+	std::cout.precision(original_precision);
 }
