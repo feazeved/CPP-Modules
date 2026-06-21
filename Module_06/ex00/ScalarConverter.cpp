@@ -75,23 +75,87 @@ static bool	stt_strtodInvalid(const char* startptr, char *endptr)
 	return (false);
 }
 
+static void	stt_printChar(const double& value)
+{
+	char	c = static_cast<unsigned char>(value);
+
+	std::cout << "char: ";
+	if (value != value)
+		std::cout << "impossible";
+	else if (!std::isprint(c))
+		std::cout << "Non displayable";
+	else
+		std::cout << "'" << c << "'";
+
+	std::cout << "\n";
+}
+
+static void	stt_printInt(const double& value)
+{
+	int	i = static_cast<int>(value);
+
+	std::cout << "int: ";
+	if (value != value
+		|| value < std::numeric_limits<int>::min()
+		|| value > std::numeric_limits<int>::max())
+		std::cout << "impossible";
+	else
+		std::cout << i;
+
+	std::cout << "\n";
+}
+
+static void	stt_printFloat(const double& value)
+{
+	float	f = static_cast<float>(value);
+
+	std::cout << "float: ";
+	if (value != value
+		|| value < std::numeric_limits<float>::min()
+		|| value > std::numeric_limits<float>::max())
+		std::cout << "impossible";
+	else
+		std::cout << f << "f";
+
+	std::cout << "\n";
+}
+
+static void	stt_printDouble(const double& value)
+{
+	std::cout << "double: ";
+
+	if (value != value)
+		std::cout << "impossible";
+	else
+		std::cout << value;
+
+	std::cout << "\n";
+}
+
+
 // PUBLIC METHODS
 void	ScalarConverter::convert(std::string str)
 {
-	const char	*startptr;
-	char	*endptr = NULL;
-	double	value;
+	const char* startptr = str.c_str();
+	char*		endptr = NULL;
+	double		value;
 
 	stt_trim(str);
 	if (str.empty() || stt_isHex(str) || stt_isOct(str))
 		return ;
 
 	errno = 0;
-	startptr = str.c_str();
-	value = std::strtod(startptr, &endptr);
+	if (std::isprint(str.at(0)) && !str.at(1))
+		value = static_cast<double>(str.at(0));
+	else
+	{
+		value = std::strtod(startptr, &endptr);
+		if (stt_strtodInvalid(startptr, endptr))
+			return ;
+	}
 
-	if (stt_strtodInvalid(startptr, endptr))
-		return ;
-
-	std::cout << value << "\n";
+	stt_printChar(value);
+	stt_printInt(value);
+	stt_printFloat(value);
+	stt_printDouble(value);
 }
