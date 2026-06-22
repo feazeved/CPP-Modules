@@ -1,5 +1,7 @@
+#include <exception>
 #include <iostream>
 #include <cstdlib>
+#include <ctime>
 
 #include "A.hpp"
 #include "B.hpp"
@@ -7,7 +9,6 @@
 
 Base*	generate(void)
 {
-	srand((unsigned) time(NULL));
 	int	random = rand() % 3;
 
 	try {
@@ -48,14 +49,28 @@ void	identify(Base* p)
 
 void	identify(Base& p)
 {
-	if (dynamic_cast<A*>(&p))
+	try {
+		A&	a = dynamic_cast<A&>(p);
+		(void)a;
 		std::cout << "I'm an A\n";
-	else if (dynamic_cast<B*>(&p))
+		return ;
+	} catch (const std::exception&) { }
+
+	try {
+		B&	b = dynamic_cast<B&>(p);
+		(void)b;
 		std::cout << "I'm a B\n";
-	else if (dynamic_cast<C*>(&p))
+		return ;
+	} catch (const std::exception&) { }
+
+	try {
+		C&	c = dynamic_cast<C&>(p);
+		(void)c;
 		std::cout << "I'm a C\n";
-	else
-		std::cerr << "Not implemented class.\n";
+		return ;
+	} catch (const std::exception&) { }
+
+	std::cerr << "Not implemented class.\n";
 }
 
 int	main()
@@ -63,6 +78,9 @@ int	main()
 	A		a;
 	B		b;
 	C		c;
+
+	srand((unsigned) time(NULL));
+
 	Base*	base = generate();
 	if (base == NULL)
 		return (1);
@@ -72,7 +90,6 @@ int	main()
 	identify(b);
 	identify(c);
 
-	delete base;
 	std::cout << std::endl;
 	return (0);
 }
