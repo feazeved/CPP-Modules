@@ -20,6 +20,7 @@ ScalarConverter& ScalarConverter::operator=(const ScalarConverter& other)
 
 ScalarConverter::~ScalarConverter() { }
 
+// Static helper functions
 static void	stt_trim(std::string& str)
 {
 	const char*	begin;
