@@ -85,7 +85,10 @@ int	main()
 	if (base == NULL)
 		return (1);
 
+	std::cout << "\n=====Testing random generated class=====\n";
 	identify(base);
+
+	std::cout << "\n=====Testing a, b and c=====\n";
 	identify(a);
 	identify(b);
 	identify(c);
