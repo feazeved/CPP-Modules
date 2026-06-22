@@ -1,10 +1,10 @@
 CC = c++
 
-NAME = converter
+NAME = serializer
 
 OBJ_DIR = objects
 
-SRC = main.cpp ScalarConverter.cpp
+SRC = main.cpp Serializer.cpp
 
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRC:.cpp=.o))
 
@@ -24,7 +24,7 @@ $(OBJ_DIR)/%.o: %.cpp | $(OBJ_DIR)
 run:
 	make re
 	clear
-	./$(NAME) 42
+	./$(NAME)
 
 clean:
 	rm -rf $(OBJ_DIR)
