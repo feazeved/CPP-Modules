@@ -9,25 +9,40 @@ void	doublevalue(A& arg)
 	arg *= 2;
 }
 
-void	toUpperChar(char& c)
+template<typename T>
+void	printArray(T* array, const size_t length)
 {
-	//c = static_cast<char>(std::toupper(static_cast<unsigned char>(c)));
-	c = std::toupper(c);
+	for (size_t i = 0; i < length; i++)
+		std::cout << array[i] << " ";
+	std::cout << "\n";
 }
 
-#define FT_LEN 5
+void	toUpperChar(char& c)
+{
+	c = std::toupper(static_cast<unsigned char>(c));
+}
 
 int	main()
 {
-	std::string	str = "teste";
-	int			arr[FT_LEN] = {0, 1, 2, 3, 4};
+	const size_t	len = 5;
+	std::string		str("teste");
+	int				arr[len] = {0, 1, 2, 3, 4};
+
+	std::cout << "\n===== Testing common function =====\n";
+	std::cout << "str before: " << str << "\n";
 
 	::iter(&str[0], str.length(), ::toUpperChar);
-	std::cout << str << "\n";
+	std::cout << "str after : " << str << "\n";
 
-	::iter(arr, FT_LEN, ::doublevalue<int>);
-	for (int i = 0; i < FT_LEN; i++)
-		std::cout << arr[i] << " ";
+
+	std::cout << "\n===== Testing instantiated template function =====\n";
+	std::cout << "arr before: ";
+	::printArray(arr, len);
+
+	::iter(arr, len, ::doublevalue<int>);
+
+	std::cout << "arr after : ";
+	::printArray(arr, len);
 
 	std::cout << std::endl;
 	return (0);
