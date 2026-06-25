@@ -1,3 +1,4 @@
+#include <exception>
 #include <iostream>
 
 #include "Array.hpp"
@@ -57,6 +58,33 @@ int	main()
 	std::cout << "\n\n===== Testing exception =====\n";
 	try {
 		std::cout << (*assign)[assign->size()];
+	} catch (const std::exception& e) {
+		std::cerr << "Exception: " << e.what() << "\n";
+	}
+
+
+	std::cout << "\n\n===== Testing empty array =====\n";
+	try {
+		std::cout << "Creating empty array...\n";
+
+		Array<int>	generic;
+
+		std::cout << "Empty Array size: " << generic.size() << "\n";
+
+	} catch (const std::exception& e) {
+		std::cerr << "Exception: " << e.what() << "\n";
+	}
+
+
+	std::cout << "\n\n===== Testing const instance =====\n";
+	try {
+		std::cout << "Creating const array...\n\n";
+
+		const Array<int>	cgeneric(*original);
+
+		std::cout << "const Array size: " << cgeneric.size() << "\n"
+				  << "const Array [0] : " << cgeneric[0] << "\n";
+
 	} catch (const std::exception& e) {
 		std::cerr << "Exception: " << e.what() << "\n";
 	}
