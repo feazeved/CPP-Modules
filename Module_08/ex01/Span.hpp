@@ -11,12 +11,12 @@ public:
 	~Span();
 
 	void	addNumber(int num);
-	int		shortestSpan();
-	int		longestSpan();
+	void	addRange(std::vector<int>::iterator first, std::vector<int>::iterator last);
+	size_t	shortestSpan();
+	size_t	longestSpan();
 
 private:
 	std::vector<int>	v;
-
 
 public:
 	class SpanException : public std::exception {

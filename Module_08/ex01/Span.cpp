@@ -30,34 +30,40 @@ void	Span::addNumber(int num)
 	v.push_back(num);
 }
 
-int		Span::shortestSpan()
+void	Span::addRange(std::vector<int>::iterator first, std::vector<int>::iterator last)
 {
-	int	pos = std::numeric_limits<int>::max();
+	for (; first != last; first++)
+		v.push_back(*first);
+}
 
+size_t	Span::shortestSpan()
+{
 	if (v.size() <= 1)
 		throw Span::SpanException();
 
-	std::sort(v.begin(), v.end());
+	size_t	pos = std::numeric_limits<size_t>::max();
 
-	for (std::vector<int>::iterator out = v.begin(); out != v.end(); out++)
+	std::vector<int> copy = v;
+
+	std::sort(copy.begin(), copy.end());
+
+	for (std::vector<int>::iterator it = copy.begin(); it != copy.end(); it++)
 	{
-		for (std::vector<int>::iterator in = (out + 1); in != v.end(); in++)
-		{
-			if (std::abs(*in - *out) < pos)
-				pos = std::abs(*in - *out);
-		}
+		if (it + 1 != copy.end() && std::abs(*(it + 1) - *it) < pos)
+			pos = std::abs(*(it + 1) - *it);
 	}
 	return (pos);
 }
 
-int		Span::longestSpan()
+size_t	Span::longestSpan()
 {
 	if (v.size() <= 1)
 		throw Span::SpanException();
 
-	std::sort(v.begin(), v.end());
+	std::vector<int>::iterator smallest = std::min_element(v.begin(), v.end());
+	std::vector<int>::iterator biggest = std::max_element(v.begin(), v.end());
 
-	int	distance = std::abs(v.at(v.size() - 1) - v.at(0));
+	size_t	distance = std::abs(*biggest - *smallest);
 
 	return (distance);
 }
