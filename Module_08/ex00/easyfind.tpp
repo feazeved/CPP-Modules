@@ -15,7 +15,5 @@ typename T::iterator	easyfind(T& container, int toFind)
 	if (it == container.end())
 		return (container.end());
 
-	std::cout << "easyfind: Element found at index " << std::distance(container.begin(), it) << "\n";
-
 	return (it);
 }
