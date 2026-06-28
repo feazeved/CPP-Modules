@@ -26,6 +26,11 @@ run:
 	clear
 	./$(NAME)
 
+vrun:
+	make re
+	clear
+	valgrind ./$(NAME)
+
 clean:
 	rm -rf $(OBJ_DIR)
 
