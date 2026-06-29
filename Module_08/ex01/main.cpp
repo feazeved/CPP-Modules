@@ -40,9 +40,9 @@ static void	testException()
 
 		std::cout << "testing span with size 2...\n";
 		sp.addNumber(67);
-		sp.addNumber(69);
+		sp.addNumber(167);
 
-		std::cout << "sp -> {67, 69}\n\n";
+		std::cout << "sp -> {67, 167}\n\n";
 		std::cout << "shortest: " << sp.shortestSpan() << "\n";
 
 	} catch (const std::exception& e) {

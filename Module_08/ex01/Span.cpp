@@ -52,7 +52,7 @@ size_t	Span::shortestSpan()
 	if (v.size() <= 1)
 		throw Span::SpanException();
 
-	size_t	pos = std::numeric_limits<size_t>::max();
+	int	pos = std::numeric_limits<int>::max();
 
 	std::vector<int> copy = v;
 
