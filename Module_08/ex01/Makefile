@@ -8,7 +8,7 @@ SRC = main.cpp Span.cpp
 
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRC:.cpp=.o))
 
-CFLAGS = -Wall -Werror -Wextra -std=c++98
+CFLAGS = -Wall -Werror -Wextra -std=c++98 -g
 
 all: $(NAME)
 
@@ -25,6 +25,11 @@ run:
 	make re
 	clear
 	./$(NAME)
+
+vrun:
+	make re
+	clear
+	valgrind ./$(NAME)
 
 clean:
 	rm -rf $(OBJ_DIR)

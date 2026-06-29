@@ -33,7 +33,15 @@ void	Span::addNumber(int num)
 void	Span::addRange(std::vector<int>::iterator first, std::vector<int>::iterator last)
 {
 	for (; first != last; first++)
-		v.push_back(*first);
+		addNumber(*first);
+}
+
+void	Span::addRange(int first, int last)
+{
+	int	increment = (first < last) ? 1 : -1;
+
+	for (; first <= last; first += increment)
+		addNumber(first);
 }
 
 size_t	Span::shortestSpan()

@@ -12,6 +12,7 @@ public:
 
 	void	addNumber(int num);
 	void	addRange(std::vector<int>::iterator first, std::vector<int>::iterator last);
+	void	addRange(int first, int last);
 	size_t	shortestSpan();
 	size_t	longestSpan();
 
