@@ -4,6 +4,7 @@
 
 #include "Span.hpp"
 
+// ----- Orthodox Canonical Implementation -----
 Span::Span(unsigned int n)
 {
 	v.reserve(n);
@@ -24,7 +25,8 @@ Span& Span::operator=(const Span& other)
 
 Span::~Span() { }
 
-
+// ----- Public Methods -----
+// ----- To Add numbers -----
 void	Span::addNumber(int num)
 {
 	v.push_back(num);
@@ -44,6 +46,7 @@ void	Span::addRange(int first, int last)
 		addNumber(first);
 }
 
+// ----- To return Spans -----
 size_t	Span::shortestSpan()
 {
 	if (v.size() <= 1)
@@ -76,4 +79,5 @@ size_t	Span::longestSpan()
 	return (distance);
 }
 
+// ----- Custom exception to be thrown when can't check span -----
 const char*	Span::SpanException::what() const throw() { return ("Cannot check span when size is 0 or 1"); }
