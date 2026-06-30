@@ -24,12 +24,12 @@ $(OBJ_DIR)/%.o: %.cpp | $(OBJ_DIR)
 run:
 	make re
 	clear
-	./$(NAME)
+	./$(NAME) input.txt
 
 vrun:
 	make re
 	clear
-	valgrind ./$(NAME)
+	valgrind ./$(NAME) input.txt
 
 clean:
 	rm -rf $(OBJ_DIR)
