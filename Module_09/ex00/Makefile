@@ -1,10 +1,10 @@
 CC = c++
 
-NAME = span
+NAME = btc
 
 OBJ_DIR = objects
 
-SRC = main.cpp Span.cpp
+SRC = main.cpp BitcoinExchange.cpp
 
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRC:.cpp=.o))
 
