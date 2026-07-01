@@ -34,13 +34,7 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 
-	std::string	line;
-
-	std::getline(requestFile, line);
-
-	std::cout << line << "\n";
-
-	// BitcoinExchange	mainDatabase(database);
+	BitcoinExchange	mainDatabase(database);
 	// BitcoinExchange	requestDatabase(requestFile);
 
 }

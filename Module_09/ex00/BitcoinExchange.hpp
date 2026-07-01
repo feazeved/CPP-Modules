@@ -3,6 +3,7 @@
 #include <fstream>
 #include <string>
 #include <map>
+#include <utility>
 
 class BitcoinExchange {
 public:
@@ -12,5 +13,6 @@ public:
 	~BitcoinExchange();
 
 private:
-	std::map<std::string, float>	m;
+	std::map<std::string, std::string>	m;
+	std::string							delim;
 };
