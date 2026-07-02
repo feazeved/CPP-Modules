@@ -2,8 +2,10 @@
 
 #include <fstream>
 #include <string>
-#include <map>
+#include <queue>
 #include <utility>
+
+typedef	std::pair<std::string, std::string>		pair;
 
 class BitcoinExchange {
 public:
@@ -12,7 +14,10 @@ public:
 	BitcoinExchange& operator=(const BitcoinExchange& other);
 	~BitcoinExchange();
 
+
 private:
-	std::map<std::string, std::string>	m;
-	std::string							delim;
+	std::queue<pair>	q;
+	std::string			delim;
+
+	static pair	makePair(std::string& line);
 };
