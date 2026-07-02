@@ -1,11 +1,10 @@
 #pragma once
 
 #include <fstream>
+#include <sstream>
 #include <string>
-#include <queue>
+#include <map>
 #include <utility>
-
-typedef	std::pair<std::string, std::string>		pair;
 
 class BitcoinExchange {
 public:
@@ -14,10 +13,16 @@ public:
 	BitcoinExchange& operator=(const BitcoinExchange& other);
 	~BitcoinExchange();
 
+	const std::map<std::string, std::string>&	getMap() const;
+
 
 private:
-	std::queue<pair>	q;
-	std::string			delim;
+	std::map<std::string, std::string>	m;
+	char								delim;
 
-	static pair	makePair(std::string& line);
+	typedef std::pair<std::string, std::string>	pair;
+
+
+	static pair	makePair(std::string& line, char delim); //     -> Function to create pair values in map m.
+	static char	parseHeader(std::string& line); //				-> Function to parse the first line of a .csv file
 };

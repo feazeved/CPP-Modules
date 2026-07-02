@@ -1,16 +1,14 @@
 #include <iostream>
 #include <cstring>
 #include <fstream>
+#include <iterator>
 
 #include "BitcoinExchange.hpp"
-
-using std::cerr;
-using std::endl;
 
 int	main(int argc, char **argv)
 {
 	if (argc != 2) {
-		cerr << "Error: Usage -> ./btc <input_file>" << endl;
+		std::cerr << "Error: Usage -> ./btc <input_file>" << std::endl;
 		return (1);
 	}
 
@@ -24,17 +22,26 @@ int	main(int argc, char **argv)
 
 	database.open(databaseName.c_str());
 	if (!database.is_open()) {
-		cerr << "Error: Could not open data.csv: " << std::strerror(errno) << endl;
+		std::cerr << "Error: Could not open data.csv: " << std::strerror(errno) << std::endl;
 		return (1);
 	}
 
 	requestFile.open(requestFileName.c_str());
 	if (!requestFile.is_open()) {
-		cerr << "Error: Could not open " + requestFileName << ": " << std::strerror(errno) << endl;
+		std::cerr << "Error: Could not open " + requestFileName << ": " << std::strerror(errno) << std::endl;
 		return (1);
 	}
 
 	BitcoinExchange	mainDatabase(database);
-	// BitcoinExchange	requestDatabase(requestFile);
+
+	const std::map<std::string, std::string>&	map = mainDatabase.getMap();
+
+	std::map<std::string, std::string>::const_iterator	it = map.begin();
+
+	for (; it != map.end(); it++)
+		std::cout << "date: " << it->first << ", value: " << it->second << "\n";
+
+
+	BitcoinExchange	requestDatabase(requestFile);
 
 }
