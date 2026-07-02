@@ -34,14 +34,5 @@ int	main(int argc, char **argv)
 
 	BitcoinExchange	mainDatabase(database);
 
-	const std::map<std::string, std::string>&	map = mainDatabase.getMap();
-
-	std::map<std::string, std::string>::const_iterator	it = map.begin();
-
-	for (; it != map.end(); it++)
-		std::cout << "date: " << it->first << ", value: " << it->second << "\n";
-
-
-	BitcoinExchange	requestDatabase(requestFile);
-
+	mainDatabase.checkInput(requestFile);
 }
