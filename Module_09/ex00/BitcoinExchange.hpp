@@ -24,5 +24,9 @@ private:
 	typedef std::pair<std::string, std::string>	pair;
 
 	static pair	makePair(std::string& line, char delim); //     -> Function to create pair values in map m.
+	static void	makeDate(std::stringstream& row, pair& columns, char delim);
+	static void	makeValue(std::stringstream& row, pair& columns);
 	static char	parseHeader(std::string& line); //				-> Function to parse the first line of a .csv file
 };
+
+bool	operator!(const std::pair<std::string, std::string>& pair);

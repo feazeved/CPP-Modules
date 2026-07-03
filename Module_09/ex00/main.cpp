@@ -32,7 +32,13 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 
-	BitcoinExchange	mainDatabase(database);
+	try {
+		BitcoinExchange	mainDatabase(database);
 
-	mainDatabase.checkInput(requestFile);
+		mainDatabase.checkInput(requestFile);
+	} catch (const std::exception& e) {
+
+		std::cerr << "Error: " << e.what() << "\n";
+		return (1);
+	}
 }
