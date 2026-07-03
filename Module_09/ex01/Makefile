@@ -10,6 +10,8 @@ OBJ = $(addprefix $(OBJ_DIR)/, $(SRC:.cpp=.o))
 
 CFLAGS = -Wall -Werror -Wextra -std=c++98
 
+ARG = "2 2 *"
+
 all: $(NAME)
 
 $(NAME): $(OBJ)
@@ -24,12 +26,12 @@ $(OBJ_DIR)/%.o: %.cpp | $(OBJ_DIR)
 run:
 	make re
 	clear
-	./$(NAME)
+	./$(NAME) $(ARG)
 
 vrun:
 	make re
 	clear
-	valgrind ./$(NAME)
+	valgrind ./$(NAME) $(ARG)
 
 clean:
 	rm -rf $(OBJ_DIR)
