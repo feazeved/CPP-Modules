@@ -27,7 +27,6 @@ void	RPN::calcExpr(std::string& arg)
 {
 	const std::string	operators("+-*/");
 
-	trimSpaces(arg);
 	for (std::size_t i = 0; i < arg.size(); i++)
 	{
 		if (!s.empty() && arg.at(i - 1) != ' ' && arg.at(i) != ' ')
@@ -49,14 +48,6 @@ void	RPN::calcExpr(std::string& arg)
 }
 
 // ----- Private Methods -----
-void	RPN::trimSpaces(std::string& arg)
-{
-	while (arg.size() && arg.at(0) == ' ')
-		arg.erase(0);
-	while (arg.size() && arg.at(arg.size() - 1) == ' ')
-		arg.erase(arg.size() - 1);
-}
-
 int	RPN::doOp(char op)
 {
 	if (s.size() < 2)

@@ -17,13 +17,10 @@ public:
 	};
 
 	void	calcExpr(std::string& arg);
-	void	printStack() const;
-
 
 private:
 	std::stack<std::pair<Type, int> >	s;
 	int					result;
 
 	int	doOp(char op);
-	static void	trimSpaces(std::string& arg);
 };
