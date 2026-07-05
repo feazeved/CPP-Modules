@@ -37,90 +37,61 @@ typedef std::map<std::string, std::string>::const_iterator	const_iterator;
 // ----- Public Methods -----
 void	BitcoinExchange::loadDB(std::ifstream& file)
 {
-	if (file.eof())
-		throw std::runtime_error("unexpected EOF encountered");
+	std::string	line;
+	char		delim;
 
-	file.exceptions(file.failbit);
-	try {
-		std::string	line;
-		char		delim;
+	for (int i = 0; std::getline(file, line, '\n'); i++) {
+		if (i == 0) {
+			delim = parseHeader(line);
+			continue ;
+		}
+		trimLine(line);
+		if (line.empty())
+			continue ;
 
-		std::getline(file , line, '\n');
-		delim = BitcoinExchange::parseHeader(line);
+		pair	columns;
+		if (!makePair(line, columns, delim))
+			throw std::runtime_error("database error at line" + std::to_string(i + 1));
 
-		while (std::getline(file, line, '\n'))
-			m.insert(makePair(line,  delim));
-
-	} catch (const std::ios_base::failure& e) {
-		if (file.fail() && !file.eof())
-			throw std::runtime_error("failure reading file");
+		m.insert(columns);
 	}
+	if (file.bad())
+		throw std::runtime_error("failure loading database");
 }
 
-void	BitcoinExchange::checkInput(std::ifstream& file) const
+void	BitcoinExchange::checkPrice(std::string& input) const
 {
-	if (file.eof())
-		return ;
 
-	file.exceptions(file.failbit);
-	try {
-		std::string	line;
-		char		delim;
-
-		std::getline(file, line, '\n');
-		delim = BitcoinExchange::parseHeader(line);
-
-		while (std::getline(file, line, '\n'))
-		{
-			pair	input = makePair(line, delim);
-
-			if (!input)
-				std::cerr << input.first << input.second << "\n";
-			else
-			{
-				const_iterator	it =  m.lower_bound(input.first);
-
-				if (it == m.end() || input.first != it->first)
-				{
-					if (it != m.begin())
-						it--;
-				}
-
-				std::cout << input.first << " => " << input.second << " = ";
-				std::cout << std::strtod(input.second.c_str(), NULL) * std::strtod(it->second.c_str(), NULL);
-
-				std::cout << "\n";
-			}
-		}
-	} catch (const std::ios_base::failure& e) {
-		if (file.fail() && !file.eof())
-			throw std::runtime_error("failure reading file");
-	}
 }
 
 
 // ----- Private Methods -----
-pair	BitcoinExchange::makePair(std::string& line, char delim)
+bool	BitcoinExchange::makePair(std::string& line, pair& columns, char delim)
 {
-	pair				columns;
-	std::stringstream	row(line);
+	std::string::iterator	first = line.begin();
+	std::size_t				second = line.find_first_of(delim, 0);
 
-	if (line.empty() || line.at(0) == '\n')
-		return (std::make_pair("Error: ", "empty line."));
+	if (second == std::string::npos) {
+		columns = std::make_pair(line, "");
+		return (false);
+	}
 
-	std::getline(row, columns.first, delim);
-	makeDate(row, columns, delim);
-	if (!columns)
-		return (columns);
 
-	std::getline(row, columns.second, delim);
-	makeValue(row, columns);
+
 
 	return (columns);
 }
 
 static int	daysInMonth(int month, int year);
 static bool	isValidDate(int year, int month, int day);
+
+void	BitcoinExchange::trimLine(std::string& line)
+{
+	for (std::string::iterator it = line.begin(); it != line.end(); it++) {
+		if (*it == ' ' || *it == '\t')
+			line.erase(it);
+	}
+}
 
 void	BitcoinExchange::makeDate(std::stringstream& row, pair& columns, char delim)
 {

@@ -14,10 +14,8 @@ public:
 	BitcoinExchange& operator=(const BitcoinExchange& other);
 	~BitcoinExchange();
 
-
-	void	checkInput(std::ifstream& file) const;
-
 	void	loadDB(std::ifstream& file);
+	void	checkPrice(std::string& input) const;
 
 
 private:
@@ -25,10 +23,12 @@ private:
 
 	typedef std::pair<std::string, std::string>	pair;
 
-	static pair	makePair(std::string& line, char delim); //     -> Function to create pair values in map m.
+	static void	trimLine(std::string& line);
+
+	static bool	makePair(std::string& line, pair& columns, char delim); //     -> Function to create pair values in map m.
 	static void	makeDate(std::stringstream& row, pair& columns, char delim);
 	static void	makeValue(std::stringstream& row, pair& columns);
-	static char	parseHeader(std::string& line); //				-> Function to parse the first line of a .csv file
+	static char	parseHeader(std::string& line);
 };
 
 bool	operator!(const std::pair<std::string, std::string>& pair);
