@@ -13,27 +13,7 @@
 #include "BitcoinExchange.hpp"
 
 // ----- Orthodox Canonical Implementation -----
-BitcoinExchange::BitcoinExchange(std::ifstream& file)
-{
-	if (file.eof())
-		throw std::runtime_error("unexpected EOF encountered");
-
-	file.exceptions(file.failbit);
-	try {
-		std::string	line;
-		char		delim;
-
-		std::getline(file , line, '\n');
-		delim = BitcoinExchange::parseHeader(line);
-
-		while (std::getline(file, line, '\n'))
-			m.insert(makePair(line,  delim));
-
-	} catch (const std::ios_base::failure& e) {
-		if (file.fail() && !file.eof())
-			throw std::runtime_error("failure reading file");
-	}
-}
+BitcoinExchange::BitcoinExchange() { }
 
 BitcoinExchange::BitcoinExchange(const BitcoinExchange& other) :
 	m(other.m) { }
@@ -55,6 +35,28 @@ typedef std::pair<std::string, std::string>					pair;
 typedef std::map<std::string, std::string>::const_iterator	const_iterator;
 
 // ----- Public Methods -----
+void	BitcoinExchange::loadDB(std::ifstream& file)
+{
+	if (file.eof())
+		throw std::runtime_error("unexpected EOF encountered");
+
+	file.exceptions(file.failbit);
+	try {
+		std::string	line;
+		char		delim;
+
+		std::getline(file , line, '\n');
+		delim = BitcoinExchange::parseHeader(line);
+
+		while (std::getline(file, line, '\n'))
+			m.insert(makePair(line,  delim));
+
+	} catch (const std::ios_base::failure& e) {
+		if (file.fail() && !file.eof())
+			throw std::runtime_error("failure reading file");
+	}
+}
+
 void	BitcoinExchange::checkInput(std::ifstream& file) const
 {
 	if (file.eof())
@@ -95,8 +97,6 @@ void	BitcoinExchange::checkInput(std::ifstream& file) const
 			throw std::runtime_error("failure reading file");
 	}
 }
-
-const std::map<std::string, std::string>&	BitcoinExchange::getMap() const { return (m); }
 
 
 // ----- Private Methods -----

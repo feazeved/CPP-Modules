@@ -8,14 +8,16 @@
 
 class BitcoinExchange {
 public:
+	BitcoinExchange();
 	BitcoinExchange(std::ifstream& file);
 	BitcoinExchange(const BitcoinExchange& other);
 	BitcoinExchange& operator=(const BitcoinExchange& other);
 	~BitcoinExchange();
 
-	const std::map<std::string, std::string>&	getMap() const;
 
 	void	checkInput(std::ifstream& file) const;
+
+	void	loadDB(std::ifstream& file);
 
 
 private:
