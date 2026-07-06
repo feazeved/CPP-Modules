@@ -43,7 +43,6 @@ int	main(int argc, char **argv)
 			throw std::runtime_error("I/O error occured");
 
 	} catch (const std::exception& e) {
-
 		std::cerr << "Error: " << e.what() << "\n";
 		return (EXIT_FAILURE);
 	}
