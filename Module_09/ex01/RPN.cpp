@@ -44,6 +44,8 @@ void	RPN::calcExpr(std::string& arg)
 		else if (arg.at(i) != ' ')
 			s.push(std::make_pair(RPN::Char, arg.at(i)));
 	}
+	if (s.size() > 1)
+		throw std::runtime_error("not enough operators");
 	std::cout << s.top().second << "\n";
 }
 
@@ -61,6 +63,9 @@ int	RPN::doOp(char op)
 
 	secondValue = s.top().second - (s.top().first == RPN::Char ? '0' : 0);
 	s.pop();
+
+	if (op == '/' && firstValue == 0)
+		throw std::runtime_error("division by 0");
 
 	switch (op)
 	{

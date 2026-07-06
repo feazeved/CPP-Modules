@@ -1,17 +1,24 @@
 #pragma once
 
-#include <list>
-#include <vector>
-
 class PmergeMe {
 public:
-	PmergeMe();
 	PmergeMe(const PmergeMe& other);
 	PmergeMe& operator=(const PmergeMe& other);
 	~PmergeMe();
 
+	enum	Type {
+		
+	}
+	
+	
+	
+	static void	printContainer();
+
+	static void	sort();
+
 
 private:
-	std::vector<int>	v;
-	std::list<int>		l;
+	static void	sortList();
+	static void	sortVector();
+	PmergeMe();
 };

@@ -1,21 +1,19 @@
 #include "PmergeMe.hpp"
 
 // ----- Orthodox Canonical Implementation -----
-PmergeMe::PmergeMe() { }
+PmergeMe::PmergeMe() {}
 
-PmergeMe::PmergeMe(const PmergeMe& other) :
-	v(other.v), l(other.l) { }
+PmergeMe::PmergeMe(char** argv) {}
+
+PmergeMe::PmergeMe(const PmergeMe& other) {}
 
 PmergeMe&	PmergeMe::operator=(const PmergeMe& other)
 {
-	if (this == &other)
-		return (*this);
-
-	v = other.v;
-	l = other.l;
-
+	(void)other;
 	return (*this);
 }
 
 PmergeMe::~PmergeMe() { }
 
+
+void	PmergeMe
