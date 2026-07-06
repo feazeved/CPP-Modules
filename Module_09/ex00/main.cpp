@@ -30,10 +30,18 @@ int	main(int argc, char **argv)
 	}
 
 	try {
-		BitcoinExchange	mainDatabase;
-		std::string		line;
+		BitcoinExchange		mainDatabase;
+		const std::string	expectedHeader = "date | value";
+		std::string			line;
 
 		mainDatabase.loadDB(database);
+
+		std::getline(inputFile, line);
+		if (line.empty() || inputFile.eof())
+			return (EXIT_SUCCESS);
+		if (line != expectedHeader)
+			throw std::runtime_error("header in wrong format, it must be \"date | value\"");
+
 		while (std::getline(inputFile, line)) {
 			if (line.empty())
 				continue ;

@@ -1,7 +1,6 @@
 #pragma once
 
 #include <fstream>
-#include <sstream>
 #include <string>
 #include <map>
 #include <utility>
@@ -24,5 +23,4 @@ private:
 	static bool	makePair(const std::string& line, pair& columns, char delim, bool inputMode);
 	static bool	makeDate(const std::string& date, std::string& mapKey);
 	static bool	makeValue(const std::string& value, std::string& mapValue, bool inputMode);
-	static char	parseHeader(const std::string& line);
 };

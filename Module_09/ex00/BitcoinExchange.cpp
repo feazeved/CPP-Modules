@@ -43,13 +43,14 @@ void	BitcoinExchange::loadDB(std::ifstream& file)
 		if (line.empty())
 			continue;
 		if (i == 0) {
-			delim = parseHeader(line);
 			i++;
 			continue;
 		}
+
 		pair	columns;
 		if (!makePair(line, columns, delim, false)) {
 			std::ostringstream oss;
+
 			oss << "database error at line " << (i + 1);
 			throw std::runtime_error(oss.str());
 		}
@@ -62,13 +63,14 @@ void	BitcoinExchange::loadDB(std::ifstream& file)
 
 void	BitcoinExchange::checkPrice(const std::string& input) const
 {
-	static bool	headerSkipped = false;
-	if (!headerSkipped) {
-		headerSkipped = true;
-		return;
+	const std::string	delim = " | ";
+	pair				inputPair;
+
+	if (input.find(delim) == std::string::npos) {
+		std::cerr << "Error: line not in format \"date | value\"" << "\n";
+		return ;
 	}
 
-	pair	inputPair;
 	if (!makePair(input, inputPair, '|', true)) {
 		if (inputPair.second == "-")
 			std::cerr << "Error: not a positive number.\n";
@@ -117,6 +119,7 @@ bool	BitcoinExchange::makePair(const std::string& line, pair& columns, char deli
 void	BitcoinExchange::trimLine(std::string& line)
 {
 	std::string::iterator	it = line.begin();
+
 	while (it != line.end()) {
 		if (*it == ' ' || *it == '\t' || *it == '\r')
 			it = line.erase(it);
@@ -145,15 +148,24 @@ bool	BitcoinExchange::makeDate(const std::string& date, std::string& mapKey)
 	char*		endptr;
 	errno = 0;
 	const long	year = std::strtol(trimmed.c_str(), &endptr, 10);
-	if (errno == ERANGE || *endptr != '-') { mapKey = trimmed; return (false); }
+	if (errno == ERANGE || *endptr != '-') {
+		mapKey = trimmed;
+		return (false);
+	}
 
 	errno = 0;
 	const long	month = std::strtol(endptr + 1, &endptr, 10);
-	if (errno == ERANGE || *endptr != '-') { mapKey = trimmed; return (false); }
+	if (errno == ERANGE || *endptr != '-') {
+		mapKey = trimmed;
+		return (false);
+	}
 
 	errno = 0;
 	const long	day = std::strtol(endptr + 1, &endptr, 10);
-	if (errno == ERANGE || *endptr != '\0') { mapKey = trimmed; return (false); }
+	if (errno == ERANGE || *endptr != '\0') {
+		mapKey = trimmed;
+		return (false);
+	}
 
 	if (!isValidDate(static_cast<int>(year), static_cast<int>(month), static_cast<int>(day))) {
 		mapKey = trimmed;
@@ -172,11 +184,12 @@ bool	BitcoinExchange::makeValue(const std::string& value, std::string& mapValue,
 		return (false);
 	}
 
-	std::size_t			end     = value.find_last_not_of(" \t\r");
+	std::size_t			end = value.find_last_not_of(" \t\r");
 	const std::string	trimmed = value.substr(start, end - start + 1);
 
 	const char*	startptr = trimmed.c_str();
 	char*		endptr;
+
 	errno = 0;
 	const double	val = std::strtod(startptr, &endptr);
 
@@ -184,7 +197,7 @@ bool	BitcoinExchange::makeValue(const std::string& value, std::string& mapValue,
 		mapValue = "";
 		return (false);
 	}
-	if (errno == ERANGE) {
+	if (errno == ERANGE || (inputMode && val > 1000)) {
 		mapValue = "+";
 		return (false);
 	}
@@ -192,24 +205,9 @@ bool	BitcoinExchange::makeValue(const std::string& value, std::string& mapValue,
 		mapValue = "-";
 		return (false);
 	}
-	if (inputMode && val > 1000) {
-		mapValue = "+";
-		return (false);
-	}
 
 	mapValue = trimmed;
 	return (true);
-}
-
-char	BitcoinExchange::parseHeader(const std::string& line)
-{
-	const char*	alnum = "abcdefghijklmnopqrstuvwxyz0123456789 ";
-
-	std::size_t	delimPos = line.find_first_not_of(alnum);
-	if (delimPos == std::string::npos)
-		throw std::runtime_error("no separator found in file header");
-
-	return (line[delimPos]);
 }
 
 static int	daysInMonth(int month, int year)
