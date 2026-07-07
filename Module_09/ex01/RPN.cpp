@@ -32,21 +32,16 @@ void	RPN::calcExpr(std::string& arg)
 		if (!s.empty() && arg.at(i - 1) != ' ' && arg.at(i) != ' ')
 			throw std::runtime_error("consecutive tokens.");
 
-		if (operators.find(arg.at(i)) != std::string::npos)
-		{
-			std::pair<RPN::Type, int>	p;
-
-			p.first = RPN::Int;
-			p.second = doOp(arg.at(i));
-
-			s.push(p);
+		if (operators.find(arg.at(i)) != std::string::npos) {
+			int value = doOp(arg.at(i));
+			s.push(value);
 		}
 		else if (arg.at(i) != ' ')
-			s.push(std::make_pair(RPN::Char, arg.at(i)));
+			s.push(arg.at(i) - '0');
 	}
 	if (s.size() > 1)
 		throw std::runtime_error("not enough operators");
-	std::cout << s.top().second << "\n";
+	std::cout << s.top() << "\n";
 }
 
 // ----- Private Methods -----
@@ -55,24 +50,24 @@ int	RPN::doOp(char op)
 	if (s.size() < 2)
 		throw std::runtime_error("not enough numbers for an operation.");
 
-	int	firstValue;
-	int	secondValue;
+	int	rhs;
+	int	lhs;
 
-	firstValue = s.top().second - (s.top().first == RPN::Char ? '0' : 0);
+	rhs = s.top();
 	s.pop();
 
-	secondValue = s.top().second - (s.top().first == RPN::Char ? '0' : 0);
+	lhs = s.top();
 	s.pop();
 
-	if (op == '/' && firstValue == 0)
+	if (op == '/' && rhs == 0)
 		throw std::runtime_error("division by 0");
 
 	switch (op)
 	{
-		case ('*'): return (secondValue * firstValue);
-		case ('+'): return (secondValue + firstValue);
-		case ('-'): return (secondValue - firstValue);
-		case ('/'): return (secondValue / firstValue);
+		case ('*'): return (lhs * rhs);
+		case ('+'): return (lhs + rhs);
+		case ('-'): return (lhs - rhs);
+		case ('/'): return (lhs / rhs);
 		default: throw std::runtime_error("invalid operator");
 	}
 }
