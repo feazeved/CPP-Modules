@@ -4,6 +4,8 @@
 
 Timer::Timer() : start(std::clock()) {}
 
+Timer::Timer(std::ostringstream& oss) : start(std::clock()), oss(&oss) {}
+
 Timer::Timer(const Timer& other) :
 	start(other.start) {}
 
@@ -23,5 +25,8 @@ Timer::~Timer()
 
 	double elapsed = static_cast<double>(end - start);
 
-	std::cout << elapsed << "us\n";
+	if (!oss)
+		std::cout << elapsed << " us\n";
+	else
+		*oss << elapsed << " us\n";
 }

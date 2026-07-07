@@ -4,13 +4,13 @@ NAME = PmergeMe
 
 OBJ_DIR = objects
 
-SRC = main.cpp PmergeMe.cpp
+SRC = main.cpp PmergeMe.cpp Timer.cpp
 
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRC:.cpp=.o))
 
 CFLAGS = -Wall -Werror -Wextra -std=c++98
 
-ARG = "3 5 9 7 4"
+ARG = 3 5 9 7 4
 
 all: $(NAME)
 
