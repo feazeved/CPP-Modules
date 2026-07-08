@@ -1,6 +1,8 @@
 #include <cstdlib>
+#include <exception>
 #include <sstream>
 #include <iostream>
+#include <vector>
 
 #include "PmergeMe.hpp"
 #include "Timer.hpp"
@@ -26,36 +28,39 @@ int	main(int argc, char **argv)
 		return (EXIT_FAILURE);
 	}
 
-	PmergeMe*	all = NULL;
+	std::vector<int>*	v = NULL;
+	std::list<int>*		l = NULL;
+
 	try {
-		all = new PmergeMe(argv + 1);
+		v = &PmergeMe::loadVector(argv + 1);
+		l = &PmergeMe::loadList(argv + 1);
 
 	} catch (const std::exception& e) {
-		delete all;
+		delete v; delete l;
+
 		std::cerr << "Error: " << e.what() << "\n";
 		return (EXIT_FAILURE);
 	}
 
 	std::ostringstream oss;
 
-	std::cout << "Before:  "; printContainer(all->getV());
+	std::cout << "Before:  "; printContainer(*v);
 	{
-		oss << "Time to process a range of " << all->getV().size()
-			<< "elements with std::vector : ";
+		oss << "Time to process a range of " << v->size()
+			<< " elements with std::vector : ";
 
 		Timer	clock(oss);
-		all->sortVector();
+		// PmergeMe::sortVector(*v);
 	}
 	{
-		oss << "Time to process a range of " << all->getL().size()
-			<< "elements with std::list : ";
+		oss << "Time to process a range of " << l->size()
+			<< " elements with std::list : ";
 
 		Timer	clock(oss);
-		all->sortList();
+		// PmergeMe::sortList(*l);
 	}
-	std::cout << "After:   "; printContainer(all->getV());
+	std::cout << "After:   "; printContainer(*v);
 
 	std::cout << oss.str();
 
-	delete all;
 }

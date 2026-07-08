@@ -6,16 +6,10 @@
 
 #include "PmergeMe.hpp"
 
-static bool	isIntRange(long int value);
+static bool	isPositiveIntRange(long int value);
 
 // ----- Orthodox Canonical Implementation -----
 PmergeMe::PmergeMe() {}
-
-PmergeMe::PmergeMe(char** args)
-{
-	loadVector(args);
-	loadList(args);
-}
 
 PmergeMe::PmergeMe(const PmergeMe& other) : v(other.v), l(other.l) {}
 
@@ -44,8 +38,10 @@ static bool	isPositiveIntRange(long int value)
 }
 
 // ----- Public Methods -----
-void	PmergeMe::loadVector(char** args)
+std::vector<int>&	PmergeMe::loadVector(char** args)
 {
+	std::vector<int>*	v = new std::vector<int>();
+
 	errno = 0;
 	for (int i = 0; args[i] != NULL; i++)
 	{
@@ -53,14 +49,18 @@ void	PmergeMe::loadVector(char** args)
 		long int	value = std::strtol(args[i], &endptr, 10);
 		if (*endptr != '\0' || !isPositiveIntRange(value))
 			throw std::runtime_error("invalid number");
-		if (std::find(v.begin(), v.end(), value) != v.end())
+		if (std::find(v->begin(), v->end(), value) != v->end())
 			throw std::runtime_error("duplicates are not allowed");
-		v.push_back(static_cast<int>(value));
+		v->push_back(static_cast<int>(value));
 	}
+
+	return (*v);
 }
 
-void	PmergeMe::loadList(char** args)
+std::list<int>&	PmergeMe::loadList(char** args)
 {
+	std::list<int>*	l = new std::list<int>();
+
 	errno = 0;
 	for (int i = 0; args[i] != NULL; i++)
 	{
@@ -68,48 +68,47 @@ void	PmergeMe::loadList(char** args)
 		long int	value = std::strtol(args[i], &endptr, 10);
 		if (*endptr != '\0' || !isPositiveIntRange(value))
 			throw std::runtime_error("invalid number");
-		if (std::find(v.begin(), v.end(), value) != v.end())
+		if (std::find(l->begin(), l->end(), value) != l->end())
 			throw std::runtime_error("duplicates are not allowed");
-		l.push_back(static_cast<int>(value));
-	}
-}
-
-void	PmergeMe::sortVector()
-{
-	if (v.size() <= 1)
-		return ;
-
-	typedef std::vector<int>::const_iterator const_iterator;
-
-	std::vector<int>	big;
-	std::vector<int>	small;
-
-	const bool	odd = v.size() % 2 != 0;
-
-	for (const_iterator it = v.begin(); (it + 1) != v.end(); it += 2) {
-		if (*it > *(it + 1)) {
-			big.push_back(*it);
-			small.push_back(*(it + 1));
-		} else {
-			big.push_back(*(it + 1));
-			small.push_back(*it);
-		}
+		l->push_back(static_cast<int>(value));
 	}
 
-	int single;
-	if (odd)
-		single = v.back();
-
-	sortVector(big);
-
-
-
+	return (*l);
 }
 
-void	PmergeMe::sortList()
-{
+// void	PmergeMe::sortVector()
+// {
+// 	if (v.size() <= 1)
+// 		return ;
 
-}
+// 	typedef std::vector<int>::const_iterator const_iterator;
 
-const std::vector<int>&	PmergeMe::getV() const { return (v); }
-const std::list<int>&	PmergeMe::getL() const { return (l); }
+// 	std::vector<int>	big;
+// 	std::vector<int>	small;
+
+// 	const bool	odd = v.size() % 2 != 0;
+
+// 	for (const_iterator it = v.begin(); (it + 1) != v.end(); it += 2) {
+// 		if (*it > *(it + 1)) {
+// 			big.push_back(*it);
+// 			small.push_back(*(it + 1));
+// 		} else {
+// 			big.push_back(*(it + 1));
+// 			small.push_back(*it);
+// 		}
+// 	}
+
+// 	int single;
+// 	if (odd)
+// 		single = v.back();
+
+// 	sortVector(big);
+
+
+
+// }
+
+// void	PmergeMe::sortList()
+// {
+
+// }
