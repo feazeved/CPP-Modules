@@ -220,7 +220,7 @@ static int	daysInMonth(int month, int year)
 
 static bool	isValidDate(int year, int month, int day)
 {
-	if (year < 2009 || month < 1 || month > 12)
+	if (month < 1 || month > 12)
 		return (false);
 	if (day < 1 || day > daysInMonth(month, year))
 		return (false);

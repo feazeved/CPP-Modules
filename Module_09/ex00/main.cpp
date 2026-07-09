@@ -39,6 +39,9 @@ int	main(int argc, char **argv)
 		std::getline(inputFile, line);
 		if (line.empty() || inputFile.eof())
 			return (EXIT_SUCCESS);
+		else if (inputFile.bad())
+			throw std::runtime_error("I/O error occured");
+
 		if (line != expectedHeader)
 			throw std::runtime_error("header in wrong format, it must be \"date | value\"");
 

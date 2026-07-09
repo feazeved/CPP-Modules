@@ -2,6 +2,8 @@
 #include <exception>
 #include <sstream>
 #include <iostream>
+#include <vector>
+#include <deque>
 
 #include "PmergeMe.hpp"
 #include "Timer.hpp"
@@ -34,15 +36,14 @@ int	main(int argc, char **argv)
 		return (EXIT_FAILURE);
 	}
 
-	std::vector<int>*	v = NULL;
-	std::deque<int>*	d = NULL;
+	std::vector<int>	v;
+	std::deque<int>		d;
 
 	try {
-		v = &PmergeMe::loadVector(argv + 1);
-		d = &PmergeMe::loadDeque(argv + 1);
+		PmergeMe::loadContainer(argv + 1, v);
+		PmergeMe::loadContainer(argv + 1, d);
 
 	} catch (const std::exception& e) {
-		delete v; delete d;
 
 		std::cerr << "Error: " << e.what() << "\n";
 		return (EXIT_FAILURE);
@@ -50,24 +51,22 @@ int	main(int argc, char **argv)
 
 	std::ostringstream oss;
 
-	std::cout << "Before:  "; printContainer(*v);
+	std::cout << "Before:  "; printContainer(v);
 	{
-		oss << "Time to process a range of " << v->size()
+		oss << "Time to process a range of " << v.size()
 			<< " elements with std::vector : ";
 
 		Timer	clock(oss);
-		PmergeMe::sort(*v);
+		PmergeMe::sortContainer(v);
 	}
 	{
-		oss << "Time to process a range of " << d->size()
+		oss << "Time to process a range of " << d.size()
 			<< " elements with std::deque : ";
 
 		Timer	clock(oss);
-		PmergeMe::sort(*d);
+		PmergeMe::sortContainer(d);
 	}
-	std::cout << "After:   "; printContainer(*v);
+	std::cout << "After:   "; printContainer(v);
 
 	std::cout << oss.str();
-
-	delete v; delete d;
 }

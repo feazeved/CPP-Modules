@@ -3,6 +3,8 @@
 #include <cstdlib>
 #include <algorithm>
 #include <stdexcept>
+#include <vector>
+#include <deque>
 
 #include "PmergeMe.hpp"
 
@@ -59,46 +61,24 @@ static std::vector<int> jacobsThal(int n)
 }
 
 // ----- Public Methods -----
-std::vector<int>&	PmergeMe::loadVector(char** args)
+template <class C>
+void	PmergeMe::loadContainer(char** args, C& c)
 {
-	std::vector<int>*	v = new std::vector<int>();
-
 	errno = 0;
 	for (int i = 0; args[i] != NULL; i++)
 	{
-		char*	endptr = NULL;
+		char*		endptr = NULL;
 		long int	value = std::strtol(args[i], &endptr, 10);
 		if (*endptr != '\0' || !isPositiveIntRange(value))
 			throw std::runtime_error("invalid number");
-		if (std::find(v->begin(), v->end(), value) != v->end())
+		if (std::find(c.begin(), c.end(), value) != c.end())
 			throw std::runtime_error("duplicates are not allowed");
-		v->push_back(static_cast<int>(value));
+		c.push_back(static_cast<int>(value));
 	}
-
-	return (*v);
-}
-
-std::deque<int>&	PmergeMe::loadDeque(char** args)
-{
-	std::deque<int>*	d = new std::deque<int>();
-
-	errno = 0;
-	for (int i = 0; args[i] != NULL; i++)
-	{
-		char*	endptr = NULL;
-		long int	value = std::strtol(args[i], &endptr, 10);
-		if (*endptr != '\0' || !isPositiveIntRange(value))
-			throw std::runtime_error("invalid number");
-		if (std::find(d->begin(), d->end(), value) != d->end())
-			throw std::runtime_error("duplicates are not allowed");
-		d->push_back(static_cast<int>(value));
-	}
-
-	return (*d);
 }
 
 template <class C>
-void	PmergeMe::sort(C& c)
+void	PmergeMe::sortContainer(C& c)
 {
 	if (c.size() <= 1)
 		return ;
@@ -124,7 +104,7 @@ void	PmergeMe::sort(C& c)
 	if (odd)
 		single = c.back();
 
-	sort(big);
+	sortContainer(big);
 
 	C	sorted = big;
 
@@ -148,5 +128,8 @@ void	PmergeMe::sort(C& c)
 	c = sorted;
 }
 
-template void	PmergeMe::sort<std::vector<int> >(std::vector<int>&);
-template void	PmergeMe::sort<std::deque<int> >(std::deque<int>&);
+template void	PmergeMe::sortContainer<std::vector<int> >(std::vector<int>&);
+template void	PmergeMe::sortContainer<std::deque<int> >(std::deque<int>&);
+
+template void	PmergeMe::loadContainer<std::vector<int> >(char** args, std::vector<int>& c);
+template void	PmergeMe::loadContainer<std::deque<int> >(char** args, std::deque<int>& c);
