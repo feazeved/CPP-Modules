@@ -1,24 +1,21 @@
 #pragma once
 
 #include <vector>
-#include <list>
+#include <deque>
 
 class PmergeMe {
 public:
 
 	static std::vector<int>&	loadVector(char** argv);
-	static std::list<int>&		loadList(char** argv);
+	static std::deque<int>&		loadDeque(char** argv);
 
-	// static void	sortVector(std::vector<int>& v);
-	// static void	sortList(std::list<int>& l);
 
+	template <class C>
+	static void	sort(C& c);
 
 private:
 	PmergeMe();
 	PmergeMe(const PmergeMe& other);
 	PmergeMe& operator=(const PmergeMe& other);
 	~PmergeMe();
-
-	std::vector<int>	v;
-	std::list<int>		l;
 };

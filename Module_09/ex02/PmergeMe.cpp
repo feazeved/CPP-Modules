@@ -11,18 +11,9 @@ static bool	isPositiveIntRange(long int value);
 // ----- Orthodox Canonical Implementation -----
 PmergeMe::PmergeMe() {}
 
-PmergeMe::PmergeMe(const PmergeMe& other) : v(other.v), l(other.l) {}
+PmergeMe::PmergeMe(const PmergeMe& other) { (void)other; }
 
-PmergeMe&	PmergeMe::operator=(const PmergeMe& other)
-{
-	if (this == &other)
-		return (*this);
-
-	v = other.v;
-	l = other.l;
-
-	return (*this);
-}
+PmergeMe&	PmergeMe::operator=(const PmergeMe& other) { (void)other; return (*this); }
 
 PmergeMe::~PmergeMe() { }
 
@@ -35,6 +26,36 @@ static bool	isPositiveIntRange(long int value)
 	else if (value < 0 || value > std::numeric_limits<int>::max())
 		return (false);
 	return (true);
+}
+
+static std::vector<int> jacobsThal(int n)
+{
+    std::vector<int> result;
+
+    result.push_back(0);
+    result.push_back(1);
+
+    int prev = 1;
+    int next = 3;
+
+    while (static_cast<int>(result.size()) < n)
+    {
+        int rangeEnd   = prev;
+        int rangeStart = std::min(next, n - 1);
+
+        for (int i = rangeStart; i > rangeEnd; i--)
+        {
+            result.push_back(i);
+            if (static_cast<int>(result.size()) == n)
+                break;
+        }
+
+        int newNext = next + 2 * prev;
+        prev = next;
+        next = newNext;
+    }
+
+    return result;
 }
 
 // ----- Public Methods -----
@@ -57,9 +78,9 @@ std::vector<int>&	PmergeMe::loadVector(char** args)
 	return (*v);
 }
 
-std::list<int>&	PmergeMe::loadList(char** args)
+std::deque<int>&	PmergeMe::loadDeque(char** args)
 {
-	std::list<int>*	l = new std::list<int>();
+	std::deque<int>*	d = new std::deque<int>();
 
 	errno = 0;
 	for (int i = 0; args[i] != NULL; i++)
@@ -68,47 +89,64 @@ std::list<int>&	PmergeMe::loadList(char** args)
 		long int	value = std::strtol(args[i], &endptr, 10);
 		if (*endptr != '\0' || !isPositiveIntRange(value))
 			throw std::runtime_error("invalid number");
-		if (std::find(l->begin(), l->end(), value) != l->end())
+		if (std::find(d->begin(), d->end(), value) != d->end())
 			throw std::runtime_error("duplicates are not allowed");
-		l->push_back(static_cast<int>(value));
+		d->push_back(static_cast<int>(value));
 	}
 
-	return (*l);
+	return (*d);
 }
 
-// void	PmergeMe::sortVector()
-// {
-// 	if (v.size() <= 1)
-// 		return ;
+template <class C>
+void	PmergeMe::sort(C& c)
+{
+	if (c.size() <= 1)
+		return ;
 
-// 	typedef std::vector<int>::const_iterator const_iterator;
+	typedef typename C::const_iterator const_iterator;
 
-// 	std::vector<int>	big;
-// 	std::vector<int>	small;
+	C	big;
+	C	small;
 
-// 	const bool	odd = v.size() % 2 != 0;
+	const bool	odd = c.size() % 2 != 0;
 
-// 	for (const_iterator it = v.begin(); (it + 1) != v.end(); it += 2) {
-// 		if (*it > *(it + 1)) {
-// 			big.push_back(*it);
-// 			small.push_back(*(it + 1));
-// 		} else {
-// 			big.push_back(*(it + 1));
-// 			small.push_back(*it);
-// 		}
-// 	}
+	for (const_iterator it = c.begin(); it != c.end() && (it + 1) != c.end(); it += 2) {
+		if (*it > *(it + 1)) {
+			big.push_back(*it);
+			small.push_back(*(it + 1));
+		} else {
+			big.push_back(*(it + 1));
+			small.push_back(*it);
+		}
+	}
 
-// 	int single;
-// 	if (odd)
-// 		single = v.back();
+	int single;
+	if (odd)
+		single = c.back();
 
-// 	sortVector(big);
+	sort(big);
 
+	C	sorted = big;
 
+	if (!small.empty())
+	{
+		std::vector<int>	indexes = jacobsThal(small.size());
+		for (std::size_t i = 0; i < small.size(); i++)
+		{
+			int idx = indexes[i];
+			typename C::iterator pos = std::lower_bound(sorted.begin(), sorted.end(), small[idx]);
+			sorted.insert(pos, small[idx]);
+		}
+	}
 
-// }
+	if (odd)
+	{
+		typename C::iterator	pos = std::lower_bound(sorted.begin(), sorted.end(), single);
+		sorted.insert(pos, single);
+	}
 
-// void	PmergeMe::sortList()
-// {
+	c = sorted;
+}
 
-// }
+template void	PmergeMe::sort<std::vector<int> >(std::vector<int>&);
+template void	PmergeMe::sort<std::deque<int> >(std::deque<int>&);

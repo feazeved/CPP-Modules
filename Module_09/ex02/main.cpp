@@ -2,7 +2,6 @@
 #include <exception>
 #include <sstream>
 #include <iostream>
-#include <vector>
 
 #include "PmergeMe.hpp"
 #include "Timer.hpp"
@@ -15,10 +14,17 @@ void	printContainer(C& container)
 	if (!container.size())
 		return ;
 
-	for (const_iterator it = container.begin(); it + 1 != container.end(); it++) {
+	const bool	abbreviate = (container.size() >= 20);
+
+	const_iterator	eit = (abbreviate ? container.begin() + 20 : container.end());
+
+	for (const_iterator it = container.begin(); it != eit; it++) {
 		std::cout << *it << " ";
 	}
-	std::cout << *(container.end() - 1) << "\n";
+
+	if (abbreviate)
+		std::cout << "[...] ";
+	std::cout << "\n";
 }
 
 int	main(int argc, char **argv)
@@ -29,14 +35,14 @@ int	main(int argc, char **argv)
 	}
 
 	std::vector<int>*	v = NULL;
-	std::list<int>*		l = NULL;
+	std::deque<int>*	d = NULL;
 
 	try {
 		v = &PmergeMe::loadVector(argv + 1);
-		l = &PmergeMe::loadList(argv + 1);
+		d = &PmergeMe::loadDeque(argv + 1);
 
 	} catch (const std::exception& e) {
-		delete v; delete l;
+		delete v; delete d;
 
 		std::cerr << "Error: " << e.what() << "\n";
 		return (EXIT_FAILURE);
@@ -50,17 +56,18 @@ int	main(int argc, char **argv)
 			<< " elements with std::vector : ";
 
 		Timer	clock(oss);
-		// PmergeMe::sortVector(*v);
+		PmergeMe::sort(*v);
 	}
 	{
-		oss << "Time to process a range of " << l->size()
-			<< " elements with std::list : ";
+		oss << "Time to process a range of " << d->size()
+			<< " elements with std::deque : ";
 
 		Timer	clock(oss);
-		// PmergeMe::sortList(*l);
+		PmergeMe::sort(*d);
 	}
 	std::cout << "After:   "; printContainer(*v);
 
 	std::cout << oss.str();
 
+	delete v; delete d;
 }
